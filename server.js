@@ -96,3 +96,5 @@ app.post('/', (req, res) => {
 
 
 // socket io 
+
+// store messages to show them offline
