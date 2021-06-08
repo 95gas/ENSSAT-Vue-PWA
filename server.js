@@ -77,5 +77,22 @@ app.get('/schedule', (req, res) => {
 })
 
 
-app.post('/', (req, res) => {
+app.get('/news', (req, res) => {
+    // display messeges sent by administration
+    const user = req.query.user;   
+
+    // check if user admin or not admin
+    // if admin displays admin interface ( button to send messages)
+    // otherwise user interface
+
 })
+
+app.post('/', (req, res) => {
+    // send messages to all the people using the app on the channel
+
+    // call socket function
+
+})
+
+
+// socket io 
