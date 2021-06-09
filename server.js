@@ -33,7 +33,7 @@ const icalGenerator = require('ical-generator');
 
 const config = require("./config.json");
 
-// check if internet conncetion exist 
+// check if internet connection exists
 const checkInternetConnected = require('check-internet-connected');
 
 const configs = {
