@@ -55,15 +55,15 @@ checkInternetConnected(configs)
 //***************** Update calendar function *********************/ 
 //****************************************************************/
 
+
 // retrieve URL from .config file
+const URL = config.URL;
 
 // ======================= TO DO ==============================
 // == retrieve all the single calendar for all the faculties ==
 // ============================================================
 
-const URL = config.URL;
-
-// download and parse iCal from the web
+// download and update the previous calendar downloaded
 async function updateCalendar() {
 
     // retrieve Icalendar
@@ -91,7 +91,8 @@ async function updateCalendar() {
                     }
                 }
             }
-            calendar.save('./calendar.ics');
+
+            calendar.save('./calendar.ics');   // if the file already exists, the function .save overwrites it.
         }
     });
 };
@@ -187,6 +188,7 @@ app.get('/schedule', (req, res) => {
 //***********************************************************/
 
 app.get('/', (req, res) => {
+
     // display messeges sent by administration
     const user = req.query.user;
 
