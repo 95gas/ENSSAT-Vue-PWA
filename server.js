@@ -1,7 +1,10 @@
 console.log("Server inialization... ");
 
 
-//CREATE THE EXPRESS APP FOR CHATBOX MANAGEMENT (ADMIN PAGE)
+//**************************************************/
+//************ INITIALIZE APP **********************/ 
+//**************************************************/
+
 const express = require('express')
 const app = express()
 const port = 3001
@@ -14,51 +17,146 @@ app.use(express.static("public"));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-// listen 
-app.listen(port, () => {
+// start server 
+const server = app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
-  })
+})
 
-// retrieve  schedule from ENSSAT
+
+//*********************************************************/
+//***************** Update schedule  *********************/ 
+//********************************************************/
 
 // import ical
 const ical = require('node-ical');
+const icalGenerator = require('ical-generator');
 
 const config = require("./config.json");
 
 // check if internet conncetion exist 
-// do stuff in an async function if internet connction exists
-;(async () => {
+const checkInternetConnected = require('check-internet-connected');
 
-    // retrieve URL from .config file
-    // e.g. URL = 'http://lanyrd.com/topics/nodejs/nodejs.ics'
-    const URL = config.URL;
+const configs = {
+    timeout: 5000, //timeout connecting to each try (default 5000)
+    retries: 2,//number of retries to do before failing (default 5)
+    domain: 'google.com'//the domain to check DNS record of
+}
 
-    // download and parse iCal from the web
-    ical.async.fromURL('http://lanyrd.com/topics/nodejs/nodejs.ics', function(err, data) { 
+checkInternetConnected(configs)
+    .then((result) => {
+        console.log("Connection available");
+        updateCalendar();
+    }).catch((err) => {
+        console.log("No connection", err);
+    })
+
+
+//****************************************************************/
+//***************** Update calendar function *********************/ 
+//****************************************************************/
+
+// retrieve URL from .config file
+// TO DO: retrieve all the single calendar for all the faculties
+
+const URL = config.URL;
+
+// download and parse iCal from the web
+async function updateCalendar() {
+
+    // retrieve Icalendar
+    ical.fromURL(URL, {}, function (err, data) {
         if (err) {
             console.error(err);
             process.exit(1);
         }
-        // print on a file to make it available offline or update if it exists
-        console.log(data);
+        else {
+
+            // store calendar
+            const calendar = icalGenerator({ name: 'test' });
+
+            for (let k in data) {
+                if (data.hasOwnProperty(k)) {
+                    var ev = data[k];
+                    if (data[k].type == 'VEVENT') {
+                        calendar.createEvent({
+                            start: ev.start,   //ev.start.getDate()   //ev.start.getMonth()  //ev.start.toLocaleTimeString('en-GB')
+                            end: ev.end,
+                            summary: ev.summary,
+                            description: ev.description,
+                            location: ev.location
+                        });
+                    }
+                }
+            }
+            calendar.save('./calendar.ics');
+        }
     });
-})
+};
 
 
-// load file
+//**************************************************/
+//***************** SOCKET.io  *********************/ 
+//**************************************************/
+
+// admin interface: sending of messages by web socket carried out on client-side
+// receive message from admins and  broadcast it to all the connceted students
+
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+
+    // when the admin emits 'new message', this listens and executes
+    socket.on('new message', (data) => {
+
+        //read user message
+        UserName = socket.username;
+        UserMsg = data;
+
+        // pseudo code to save conversation
+        // var conversation = db.getConversation();
+        // conversation.addMessage(data.message);
+        // conversation.save();
+
+        // broadcast the msg to all the clients connected ( to the same channel )
+        socket.broadcast.emit('new message', {
+            username: socket.username,
+            message: data
+        });
+    });
+
+    // send store messages when user is online ( or save it into a file on client side and load it as app is launched )
+
+    socket.on('online', function (data) {
+
+        socket.username = username;
+
+        // pseudo code to get messages and display to user on first load
+        // var conversation = db.getConversation();
+        // var messages = conversation.getLast10Messages();
+        // messages.forEach(function(message) { 
+        //     socket.emit('message', message);
+        // });
+    });
+});
+
+
+
+//************************************************************/
+//********************** GET schedule ***********************/ 
+//***********************************************************/
+
 app.get('/schedule', (req, res) => {
 
     // retrieve schedule to load as url parameter
     const schedule = req.query.schedule;   // ..../schedule?schedule = info
 
     // look for the file .ics with the selected schedule to load -- > store it in a json file ( use .config.json )
-    const fileSchedule ;
+    var fileSchedule;
 
     // open file
     // retrieve schedule, if found, set fileSchedule
     // otherwise, ERROR
-    
+
     // load and parse this file without blocking the event loop
     const events = ical.sync.parseFile(fileSchedule);
 
@@ -72,14 +170,16 @@ app.get('/schedule', (req, res) => {
             '\n'
         );
     };
-    
-
 })
 
 
-app.get('/news', (req, res) => {
+//************************************************************/
+//********************** GET HOME PAGE **********************/ 
+//***********************************************************/
+
+app.get('/', (req, res) => {
     // display messeges sent by administration
-    const user = req.query.user;   
+    const user = req.query.user;
 
     // check if user admin or not admin
     // if admin displays admin interface ( button to send messages)
@@ -87,14 +187,9 @@ app.get('/news', (req, res) => {
 
 })
 
-app.post('/', (req, res) => {
-    // send messages to all the people using the app on the channel
 
-    // call socket function
+//************************************************************/
+//********************** GET messages  **********************/ 
+//***********************************************************/
 
-})
-
-
-// socket io 
-
-// store messages to show them offline
+// chat interface ( only read ) for the students is implemented client-side
