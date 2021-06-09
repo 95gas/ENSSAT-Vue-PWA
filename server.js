@@ -56,7 +56,10 @@ checkInternetConnected(configs)
 //****************************************************************/
 
 // retrieve URL from .config file
-// TO DO: retrieve all the single calendar for all the faculties
+
+// ======================= TO DO ==============================
+// == retrieve all the single calendar for all the faculties ==
+// ============================================================
 
 const URL = config.URL;
 
@@ -98,8 +101,7 @@ async function updateCalendar() {
 //***************** SOCKET.io  *********************/ 
 //**************************************************/
 
-// admin interface: sending of messages by web socket carried out on client-side
-// receive message from admins and  broadcast it to all the connceted students
+// Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
 const io = require('socket.io')(server);
 
@@ -112,10 +114,12 @@ io.on('connection', (socket) => {
         UserName = socket.username;
         UserMsg = data;
 
+        // ======================= TO DO ==============================
         // pseudo code to save conversation
         // var conversation = db.getConversation();
         // conversation.addMessage(data.message);
         // conversation.save();
+        // ============================================================
 
         // broadcast the msg to all the clients connected ( to the same channel )
         socket.broadcast.emit('new message', {
@@ -130,12 +134,14 @@ io.on('connection', (socket) => {
 
         socket.username = username;
 
+        // ======================= TO DO ==============================
         // pseudo code to get messages and display to user on first load
         // var conversation = db.getConversation();
         // var messages = conversation.getLast10Messages();
         // messages.forEach(function(message) { 
         //     socket.emit('message', message);
         // });
+        // ============================================================
     });
 });
 
@@ -153,9 +159,12 @@ app.get('/schedule', (req, res) => {
     // look for the file .ics with the selected schedule to load -- > store it in a json file ( use .config.json )
     var fileSchedule;
 
+    // ======================= TO DO ==============================
     // open file
     // retrieve schedule, if found, set fileSchedule
     // otherwise, ERROR
+    // ============================================================
+
 
     // load and parse this file without blocking the event loop
     const events = ical.sync.parseFile(fileSchedule);
@@ -181,10 +190,11 @@ app.get('/', (req, res) => {
     // display messeges sent by administration
     const user = req.query.user;
 
+    // ======================= TO DO ==============================
     // check if user admin or not admin
     // if admin displays admin interface ( button to send messages)
     // otherwise user interface
-
+    // ============================================================
 })
 
 
