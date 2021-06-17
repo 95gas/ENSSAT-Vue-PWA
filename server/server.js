@@ -12,8 +12,8 @@ const port = 3001
 
 //set the view engine as ejs
 app.set('view engine', 'ejs');
-app.set('views', './app/views');
-app.use(express.static("public"));
+app.set('views', '../app/views');
+app.use(express.static("../app/public"));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
@@ -157,8 +157,9 @@ app.get('/', (req, res) => {
     // ======================= TO DO ==============================
     // check if user admin or not admin
     // if admin displays admin interface ( button to send messages)
-    // otherwise user interface
     // ============================================================
+
+    res.render ('index');
 })
 
 
