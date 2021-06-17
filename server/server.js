@@ -60,6 +60,7 @@ checkInternetConnected(configs)
 
 
 
+
 //**************************************************/
 //***************** SOCKET.io  *********************/ 
 //**************************************************/
@@ -68,46 +69,9 @@ checkInternetConnected(configs)
 
 const io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
+var SendReceiveMessages = require('./public/lib/SocketServer.js');
 
-    // when the admin emits 'new message', this listens and executes
-    socket.on('new message', (data) => {
-
-        //read user message
-        UserName = socket.username;
-        UserMsg = data;
-
-        // ======================= TO DO ==============================
-        // pseudo code to save conversation
-        // var conversation = db.getConversation();
-        // conversation.addMessage(data.message);
-        // conversation.save();
-        // ============================================================
-
-        // broadcast the msg to all the clients connected ( to the same channel )
-        socket.broadcast.emit('new message', {
-            username: socket.username,
-            message: data
-        });
-    });
-
-    // send store messages when user is online ( or save it into a file on client side and load it as app is launched )
-
-    socket.on('online', function (data) {
-
-        socket.username = username;
-
-        // ======================= TO DO ==============================
-        // pseudo code to get messages and display to user on first load
-        // var conversation = db.getConversation();
-        // var messages = conversation.getLast10Messages();
-        // messages.forEach(function(message) { 
-        //     socket.emit('message', message);
-        // });
-        // ============================================================
-    });
-});
-
+SendReceiveMessages.StartChat(io);
 
 
 //************************************************************/
@@ -156,7 +120,7 @@ app.get('/', (req, res) => {
 
     // ======================= TO DO ==============================
     // check if user admin or not admin
-    // if admin displays admin interface ( button to send messages)
+    // if admin displays admin interface (button to send messages)
     // ============================================================
 
     res.render ('index');
@@ -164,7 +128,7 @@ app.get('/', (req, res) => {
 
 
 //************************************************************/
-//********************** GET messages  **********************/ 
+//********************** GET messages ***********************/
 //***********************************************************/
 
 // chat interface ( only read ) for the students is implemented client-side
