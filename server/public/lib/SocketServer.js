@@ -1,3 +1,8 @@
+const conversation = require('./LowDbUtilities.js');
+
+const fs = require('fs');
+
+
 //**************************************************/
 //***************** SOCKET.io  *********************/ 
 //**************************************************/
@@ -5,6 +10,12 @@
 // Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
 async function StartChat(io) {
+
+    // cretae database for storing the messages
+
+    conversation.create().then(message => {
+        MessageInstance = message;
+    })
 
     io.on('connection', (socket) => {
 
@@ -15,12 +26,11 @@ async function StartChat(io) {
             UserName = socket.username;
             UserMsg = data;
 
-            // ======================= TO DO ==============================
-            // pseudo code to save conversation
-            // var conversation = db.getConversation();
-            // conversation.addMessage(data.message);
-            // conversation.save();
-            // ============================================================
+            // ======================= STORES MESSAGES ==============================
+
+            MessageInstance.addMsg(Username, UserMsg);
+
+            // ======================================================================
 
             // broadcast the msg to all the clients connected ( to the same channel )
             socket.broadcast.emit('new message', {
@@ -35,14 +45,20 @@ async function StartChat(io) {
 
             socket.username = username;
 
-            // ======================= TO DO ==============================
-            // pseudo code to get messages and display to user on first load
-            // var conversation = db.getConversation();
-            // var messages = conversation.getLast10Messages();
-            // messages.forEach(function(message) { 
-            //     socket.emit('message', message);
-            // });
-            // ============================================================
+            // ======================= DISPLAY OFFLINE MESSAGES ==============================
+
+            fs.readFile('test.json', (err, data) => {
+                if (err) throw err;
+                let fullConversation = JSON.parse(data);
+
+                // var messages = conversation.getLast10Messages();
+
+                fullConversation.forEach(function(message) {  // TO TEST
+                         socket.emit('message', message);
+               });
+            });
+
+            // =================================================================================
         });
     });
 }
