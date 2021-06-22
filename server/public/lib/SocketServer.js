@@ -49,11 +49,12 @@ async function StartChat(io) {
 
             fs.readFile('test.json', (err, data) => {
                 if (err) throw err;
+
                 let fullConversation = JSON.parse(data);
 
                 // var messages = conversation.getLast10Messages();
 
-                fullConversation.forEach(function(message) {  // TO TEST
+                fullConversation.forEach(function(message) { 
                          socket.emit('message', message);
                });
             });

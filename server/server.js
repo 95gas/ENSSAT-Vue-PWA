@@ -77,10 +77,10 @@ SendReceiveMessages.StartChat(io);
 //********************** GET schedule ***********************/ 
 //***********************************************************/
 
-app.get('/schedule:', (req, res) => {
+app.get('/schedule:faculty', (req, res) => {
 
     // retrieve schedule to load as url parameter
-    const schedule = req.query.schedule;   // ..../schedule?schedule = info
+    const schedule = req.params['faculty'];   
 
     // look for the file .ics with the selected schedule to load -- > store it in a json file ( use .config.json )
     var fileSchedule;

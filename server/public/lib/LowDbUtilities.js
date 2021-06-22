@@ -8,9 +8,8 @@ class MessageService{
 		this.db = {};
 	}
 
-	static async create(){ //since I cannot return a promise in a constructor
+	static async create(){ 
 		const service = new MessageService();
-		//DB_PATH=./model/db.json
 		const adapter = new FileAsync('test.json');
 		service.db = await LowDB(adapter);
 		return service;
@@ -30,6 +29,8 @@ class MessageService{
 
 	getTasks(){
 		return this.db.get('Chat').value();
+
+        // return here the first 100 messages 
 	}
 }
 
