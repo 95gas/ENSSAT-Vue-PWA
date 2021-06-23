@@ -6,7 +6,6 @@
 
 import { register } from 'register-service-worker'
 
-//if (process.env.NODE_ENV === 'production') {
 register(`/ServiceWorker.js`, { // IMPO: the current path is referred to the public folder by default !
   ready() {
     console.log(
@@ -33,4 +32,3 @@ register(`/ServiceWorker.js`, { // IMPO: the current path is referred to the pub
     console.error('Error during service worker registration:', error)
   }
 })
-//}

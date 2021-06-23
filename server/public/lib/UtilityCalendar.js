@@ -42,5 +42,9 @@ async function updateCalendar( URL ) {
     });
 };
 
+function ParseCalendar (file){
+return ical.sync.parseFile(file);
+}
+
 // exports functions
-module.exports = { updateCalendar};
+module.exports = { updateCalendar, ParseCalendar};

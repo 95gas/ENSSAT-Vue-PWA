@@ -77,10 +77,12 @@ SendReceiveMessages.StartChat(io);
 //********************** GET schedule ***********************/ 
 //***********************************************************/
 
-app.get('/schedule:faculty', (req, res) => {
+app.get('/schedule/:faculty/:year/:group', (req, res) => {
 
     // retrieve schedule to load as url parameter
-    const schedule = req.params['faculty'];   
+    const faculty = req.params['faculty'];
+    const year = req.params['year'];
+    const group = req.params['group'];
 
     // look for the file .ics with the selected schedule to load -- > store it in a json file ( use .config.json )
     var fileSchedule;
@@ -93,7 +95,7 @@ app.get('/schedule:faculty', (req, res) => {
 
 
     // load and parse this file without blocking the event loop
-    const events = ical.sync.parseFile(fileSchedule);
+    /*const events = calendarTools.ParseCalendar(fileSchedule);
 
     // read schedule and display informational
     // send it to page
@@ -104,7 +106,10 @@ app.get('/schedule:faculty', (req, res) => {
             '\nStart Date: ' + event.start.toISOString() +
             '\n'
         );
-    };
+    };*/
+
+    res.send(" TODO: show calendar ").status(200);
+    
 })
 
 
