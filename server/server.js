@@ -48,7 +48,7 @@ checkInternetConnected(configs)
 
         console.log("Connection available");
 
-        calendarTools.updateCalendar(URL);
+        calendarTools.updateCalendar(URL, 'test');
 
         // ======================= TO DO ==============================
         // == retrieve all the single calendar for all the faculties ==
@@ -127,7 +127,7 @@ app.get('/', (req, res) => {
     // if admin displays admin interface (button to send messages)
     // ============================================================
 
-    res.render ('index');
+    res.render ('../app/App.vue');
 })
 
 

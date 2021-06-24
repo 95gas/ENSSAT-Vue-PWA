@@ -3,36 +3,56 @@
     <form id="CalendarForm" v-on:submit="send" method="post">
       <fieldset>
         <p>
-          <label> Insert name of faculty </label>
-          <input type="text" name="faculty" placeholder="Insert faculty name" />
+          <label> Choose the faculty: </label>
+          <select v-model="SelectedFaculty">
+            <option
+              name="faculty"
+              v-for="(faculty, index) in listFaculties.Faculty"
+              :value="index"
+              :key="faculty.Name"
+            >
+              {{ index }}{{ faculty.Name }}
+            </option>
+          </select>
         </p>
         <p>
-          <label> Insert year of study </label>
-          <input type="text" name="year" placeholder="Insert year of study" />
+          <label> Choose your group: </label>
+          <select v-model="SelectedGroup" v-if="SelectedFaculty != -1">
+            <option
+              name="group"
+              v-for="(options, index) in listFaculties.Faculty[SelectedFaculty]
+                .value"
+              :value="index"
+              :key="options.Name"
+            >
+              {{ index }}{{ options.Name }}
+            </option>
+          </select>
         </p>
         <p>
-          <label> Insert group number </label>
-          <input type="text" name="group" placeholder="Insert group" />
+          <button type="submit" class="btn">Search</button>
         </p>
-        <button type="submit" class="btn">Search</button>
       </fieldset>
     </form>
   </div>
 </template>
 
 <script>
+import Db from "../config.json";
+
 export default {
   name: "Calendar",
+  data() {
+    return {
+      SelectedFaculty: -1,
+      SelectedGroup: '',
+      listFaculties: Db
+    };
+  },
   methods: {
     send: function () {
-      
       var action_src =
-        "http://localhost:3001/schedule/" +
-        document.getElementsByName("faculty")[0].value +
-        "/" +
-        document.getElementsByName("year")[0].value +
-        "/" +
-        document.getElementsByName("group")[0].value;
+        "http://localhost:3001/schedule/" + this.SelectedFaculty + "/" + this.SelectedGroup;
 
       var form = document.getElementById("CalendarForm");
 
@@ -58,7 +78,7 @@ export default {
   margin-bottom: 35px;
   margin-right: 10%;
   display: table-cell;
-  width: 400px;
+  width: 300px;
 }
 
 fieldset {
@@ -72,11 +92,13 @@ fieldset p {
 fieldset label {
   text-align: left;
   display: table-cell;
+  padding-right: 20px;
 }
 
-fieldset input {
+fieldset select {
   text-align: right;
   display: table-cell;
   position: relative;
+  width: 70px;
 }
 </style>

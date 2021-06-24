@@ -13,7 +13,9 @@ async function StartChat(io) {
 
     // cretae database for storing the messages
 
-    conversation.create().then(message => {
+    let fileName = 'conversation';
+
+    conversation.create(fileName).then(message => {
         MessageInstance = message;
     })
 

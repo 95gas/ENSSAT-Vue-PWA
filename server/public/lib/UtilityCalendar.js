@@ -9,7 +9,7 @@ const icalGenerator = require('ical-generator');
 
 // download from URL or update the previous calendar previously downloaded
 
-async function updateCalendar( URL ) {
+async function updateCalendar( URL, fileName ) {
 
     // retrieve Icalendar
     ical.fromURL(URL, {}, function (err, data) {
@@ -37,7 +37,8 @@ async function updateCalendar( URL ) {
                 }
             }
 
-            calendar.save('./calendar.ics');   // if the file already exists, the function .save overwrites it.
+            calendar.save('./public/calendars/' + fileName + '.ics');   // if the file already exists, the function .save overwrites it.
+            console.log('schedule for ' + fileName + ' updated');
         }
     });
 };

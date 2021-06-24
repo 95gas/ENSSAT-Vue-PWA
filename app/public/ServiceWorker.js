@@ -10,7 +10,6 @@ const toCache = [
   '/src/views/About.vue',
   '/src/views/Home.vue',
   '/src/router/index.js',
-  '/src/components/HelloWorld.vue',
   '/src/components/layout/Header.vue'
 ];
 

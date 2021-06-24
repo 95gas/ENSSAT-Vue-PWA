@@ -1,3 +1,30 @@
 {
-    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/bWKQzRYa.shu"
+    "Faculties": [
+        {
+            "Name": "IMR1",
+            "value": [
+                {
+                    "Name": "IMR1 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/VOnEjzWr.shu"
+                },
+                {
+                    "Name": "IMR1 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu"
+                }
+            ]
+        },
+        {
+            "Name": "IMR2",
+            "value": [
+                {
+                    "Name": "IMR2 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/V9n967WP.shu"
+                },
+                {
+                    "Name": "IMR2 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/GrYBkznx.shu"
+                }
+            ]
+        }
+    ]
 }

@@ -8,9 +8,9 @@ class MessageService{
 		this.db = {};
 	}
 
-	static async create(){ 
+	static async create(fileName){ 
 		const service = new MessageService();
-		const adapter = new FileAsync('test.json');
+		const adapter = new FileAsync(fileName + '.json');
 		service.db = await LowDB(adapter);
 		return service;
 	}
