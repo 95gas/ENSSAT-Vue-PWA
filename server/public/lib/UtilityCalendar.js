@@ -9,7 +9,14 @@ const icalGenerator = require('ical-generator');
 
 // download from URL or update the previous calendar previously downloaded
 
-async function updateCalendar( URL, fileName ) {
+async function updateCalendar( URL, path, fileName ) {
+
+    // check path. If folder doesn't exist, create it'
+    var fs = require('fs');
+
+    if (!fs.existsSync(path)){
+        fs.mkdirSync(path);
+    }
 
     // retrieve Icalendar
     ical.fromURL(URL, {}, function (err, data) {
@@ -37,15 +44,11 @@ async function updateCalendar( URL, fileName ) {
                 }
             }
 
-            calendar.save('./public/calendars/' + fileName + '.ics');   // if the file already exists, the function .save overwrites it.
-            console.log('schedule for ' + fileName + ' updated');
+            calendar.save(path + fileName + '.ics');   // if the file already exists, the function .save overwrites it.
+            console.log('schedule for ' + fileName + '.ics updated and stored in ' + path);
         }
     });
 };
 
-function ParseCalendar (file){
-return ical.sync.parseFile(file);
-}
-
 // exports functions
-module.exports = { updateCalendar, ParseCalendar};
+module.exports = { updateCalendar};

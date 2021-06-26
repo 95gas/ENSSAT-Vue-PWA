@@ -1,3 +1,10 @@
+<!-- **************************************************************
+********************* HEADER LAYOUT *******************************
+*******************************************************************
+
+This page deals with displaying the HEADER on the Home page.
+-->
+
 <template>
   <header class="header">
 
@@ -19,6 +26,8 @@ export default {
   color: white;
   text-align: center;
   padding: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .header a {

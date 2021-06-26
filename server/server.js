@@ -1,18 +1,14 @@
 console.log("Server inialization... ");
 
 
-//**************************************************/
-//************ INITIALIZE APP **********************/ 
-//**************************************************/
+//*************************************************************/
+//******************* INITIALIZE SERVER **********************/ 
+//************************************************************/
 
 const express = require('express')
 const app = express()
 const port = 3001
 
-
-//set the view engine as ejs
-app.set('view engine', 'ejs');
-app.set('views', '../app/views');
 app.use(express.static("../app/public"));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -23,14 +19,10 @@ const server = app.listen(port, () => {
 })
 
 
-//*********************************************************/
-//***************** Update schedule  *********************/ 
-//********************************************************/
-
-const config = require("./config.json");
-
-// retrieve URL from .config file
-const URL = config.URL;
+//********************************************************************/
+//***************** Retrieve and Update Calendars ********************/
+//********************************************************************/
+// In this section we download and update the calendars if we are connected to internet
 
 var calendarTools = require('./public/lib/UtilityCalendar.js');
 
@@ -48,11 +40,30 @@ checkInternetConnected(configs)
 
         console.log("Connection available");
 
-        calendarTools.updateCalendar(URL, 'test');
+        // ========================================================
+        // == FETCH ALL THE CALENDARS OF THE FACULTIES PER GROUP ==
+        // ========================================================
 
-        // ======================= TO DO ==============================
-        // == retrieve all the single calendar for all the faculties ==
-        // ============================================================
+        // import database
+        const databases = require('./public/Database/DB.json');
+
+        databases.Faculty.forEach(faculty => {
+
+            // retrieve name faculty
+            const degree = faculty.Name;
+
+            faculty.Groups.forEach(group => { // per each group of the faculty
+
+                // retrieve URL and name of the group
+                const URL = group.URL;
+                const fileName = group.Name;
+
+                // generate calendar for each group
+                const saveTo = "./public/calendars/" + degree + "/";
+                calendarTools.updateCalendar(URL, saveTo, fileName);
+            });
+        });
+        // ================= END CALENDAR FETCH ====================
 
     }).catch((err) => {
         console.log("No connection", err);
@@ -74,61 +85,41 @@ SendReceiveMessages.StartChat(io);
 
 
 //************************************************************/
-//********************** GET schedule ***********************/ 
+//********************** GET CALENDAR ***********************/ 
 //***********************************************************/
 
-app.get('/schedule/:faculty/:year/:group', (req, res) => {
+// import cors
+const cors = require("cors");
 
-    // retrieve schedule to load as url parameter
-    const faculty = req.params['faculty'];
-    const year = req.params['year'];
-    const group = req.params['group'];
+// use cors
+app.use(cors());
 
-    // look for the file .ics with the selected schedule to load -- > store it in a json file ( use .config.json )
-    var fileSchedule;
+app.get('/schedule/:faculty/:group', (req, res) => {
 
-    // ======================= TO DO ==============================
-    // open file
-    // retrieve schedule, if found, set fileSchedule
-    // otherwise, ERROR
-    // ============================================================
+    // retrieve url parameters
+    const facultyIndex = parseInt(req.params['faculty']);
+    const groupIndex = parseInt(req.params['group']);
 
+    // import database
+    const databases = require('./public/Database/DB.json');
 
-    // load and parse this file without blocking the event loop
-    /*const events = calendarTools.ParseCalendar(fileSchedule);
+    // fetch name faculty and group selected by the client
+    const faculty = databases.Faculty[facultyIndex].Name;
+    const group = databases.Faculty[facultyIndex].Groups[groupIndex].Name;
 
-    // read schedule and display informational
-    // send it to page
-    for (const event of Object.values(events)) {
-        console.log(
-            'Summary: ' + event.summary +
-            '\nDescription: ' + event.description +
-            '\nStart Date: ' + event.start.toISOString() +
-            '\n'
-        );
-    };*/
+    // look for the file .ics with the selected schedule
+    const fileName = group + ".ics";
+    var pathCalendar = "./public/calendars/" + faculty + "/" + fileName;
 
-    res.send(" TODO: show calendar ").status(200);
-    
+    const path = require('path');
+    var absolutePath = path.join( __dirname, pathCalendar);
+
+    // send calendar back to the client
+    res.sendFile(absolutePath, function (err) {
+        if (err) {
+            next(err)
+        } else {
+            console.log('Sent file:', fileName)
+        }
+    });
 })
-
-
-//************************************************************/
-//********************** GET HOME PAGE **********************/ 
-//***********************************************************/
-
-app.get('/', (req, res) => {
-
-    // display messeges sent by administration
-    const user = req.query.user;
-
-    // ======================= TO DO ==============================
-    // check if user admin or not admin
-    // if admin displays admin interface (button to send messages)
-    // ============================================================
-
-    res.render ('../app/App.vue');
-})
-
-
-// lowdb for files

@@ -1,9 +1,15 @@
+<!-- *****************************************************************
+************************* MAIN APP PAGE ******************************
+**********************************************************************
+
+This page is the first to be displayed as the app is launched.
+-->
+
 <template>
   <div class="app">
-    <Header />
+    <Header /> <!-- the HEADER displays also the HOME.vue page -->
     <router-view/>
   </div>
-  <!-- <footer /> -->
 </template>
 
 <script>

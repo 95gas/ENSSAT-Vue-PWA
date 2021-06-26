@@ -6,6 +6,7 @@
 const CACHE_NAME = 'sw-cache';
 const toCache = [
   '/',
+  '/src/Database/DB.json',
   '/src/App.vue',
   '/src/views/About.vue',
   '/src/views/Home.vue',
