@@ -77,9 +77,9 @@ checkInternetConnected(configs)
 
 // Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
-const io = require('socket.io')(server);
-
 var SendReceiveMessages = require('./public/lib/SocketServer.js');
+
+const io = require('socket.io')(server);
 
 SendReceiveMessages.StartChat(io);
 

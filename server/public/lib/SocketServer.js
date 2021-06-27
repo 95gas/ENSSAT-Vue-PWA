@@ -11,8 +11,9 @@ const fs = require('fs');
 
 async function StartChat(io) {
 
-    // cretae database for storing the messages
+    console.log(" --> Socket launched ... ")
 
+    // cretae database for storing the messages
     let fileName = 'conversation';
 
     conversation.create(fileName).then(message => {
