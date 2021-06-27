@@ -10,7 +10,7 @@ This page deals with displaying the HEADER on the Home page.
 
     <h1>Schedule manager</h1>
     <router-link to="/">Schedule</router-link> |
-    <router-link to="/about">News</router-link>
+    <router-link to="/News/user">News</router-link>
   </header>
 </template>
 

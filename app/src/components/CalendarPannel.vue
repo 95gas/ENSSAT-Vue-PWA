@@ -94,7 +94,6 @@ export default {
 
     forceRerender: function() {
       this.componentKey += 1
-      console.log("reload");
     },
 
 
