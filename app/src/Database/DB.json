@@ -130,6 +130,158 @@
                     "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/rY641gWz.shu"
                 }
             ]
+        },
+        {
+            "Name": "PHOT1 S1",
+            "Groups": [
+                {
+                    "Name": "PHOT1 S1 CPG1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/AWvJV5WP.shu"
+                },
+                {
+                    "Name": "PHOT1 S1 CPG1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/5YGpLbnJ.shu"
+                },
+                {
+                    "Name": "PHOT1 S1 TS",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/x3dPqV3e.shu"
+                }
+            ]
+        },
+        {
+            "Name": "PHOT1 S2",
+            "Groups": [
+                {
+                    "Name": "PHOT1 S2 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9n9Oeq3P.shu"
+                },
+                {
+                    "Name": "PHOT1 S2 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/KYN8jgWv.shu"
+                }
+            ]
+        },
+        {
+            "Name": "PHOT2",
+            "Groups": [
+                {
+                    "Name": "PHOT2 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/bE3peyYA.shu"
+                },
+                {
+                    "Name": "PHOT2 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/V9n9rKWP.shu"
+                }
+            ]
+        },
+        {
+            "Name": "PHOT3",
+            "Groups": [
+                {
+                    "Name": "PHOT3",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/KNYaVOnl.shu"
+                }
+            ]
+        },
+        {
+            "Name": "SNUM1 S1",
+            "Groups": [
+                {
+                    "Name": "SNUM1 S1 CPG1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/rY6RZ6Yz.shu"
+                },
+                {
+                    "Name": "SNUM1 S1 TS",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/EYlZLJWa.shu"
+                }
+            ]
+        },
+        {
+            "Name": "SNUM1 S2",
+            "Groups": [
+                {
+                    "Name": "SNUM1 S2 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/mWbZVLW2.shu"
+                }
+            ]
+        },
+        {
+            "Name": "SNUM2",
+            "Groups": [
+                {
+                    "Name": "SNUM2 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/PKYgDPnJ.shu"
+                },
+                {
+                    "Name": "SNUM2 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/76YPGE3v.shu"
+                }
+            ]
+        },
+        {
+            "Name": "SNUM3",
+            "Groups": [
+                {
+                    "Name": "SNUM3 G1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/7rY61Q3z.shu"
+                },
+                {
+                    "Name": "SNUM3 G2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/2YX828YD.shu"
+                }
+            ]
+        },
+        {
+            "Name": "TC CP IPS1",
+            "Groups": [
+                {
+                    "Name": "CPTD1TP1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/OnEBVmWr.shu"
+                },
+                {
+                    "Name": "CPTD1TP2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/PnROroW8.shu"
+                },
+                {
+                    "Name": "CPTD2TP3",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/V3LPN23A.shu"
+                },
+                {
+                    "Name": "CPTD2TP4",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/KYgRoP3J.shu"
+                },
+                {
+                    "Name": "CPTD3TP5",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/v3VAejWb.shu"
+                }
+            ]
+        },
+        {
+            "Name": "TC INFO1 TS",
+            "Groups": [
+                {
+                    "Name": "TC INFO1 TS",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/L3Z9DvWJ.shu"
+                }
+            ]
+        },
+        {
+            "Name": "TC PHOT1 TS",
+            "Groups": [
+                {
+                    "Name": "TC PHOT1 TS",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/bWKQZQYa.shu"
+                }
+            ]
+        },
+        {
+            "Name": "TC SNUM1 TS",
+            "Groups": [
+                {
+                    "Name": "TC SNUM1 TS",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/13484j3k.shu"
+                }
+            ]
         }
     ]
 }
