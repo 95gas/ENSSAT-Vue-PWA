@@ -78,7 +78,7 @@ export default {
       listFaculties: Db,
       // for storing the file fetched from the server
       calendarFile: "",
-
+       // key for the component 'CalendarLayout'
       componentKey: 0,
     };
   },
