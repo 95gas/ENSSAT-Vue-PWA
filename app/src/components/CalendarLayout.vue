@@ -60,8 +60,13 @@ export default {
     // ======================================================================================
     // when the variable 'ScheduleSelected' changes, execute the function populateCalendar()
     // ======================================================================================
-
+  
     ScheduleSelected: function () {
+
+      // delete previous calendar stored
+      this.attributes = [];
+
+      // build new calendar
       this.populateCalendar();
     },
   },
@@ -71,11 +76,12 @@ export default {
     ****************************************************************************
 
     The function deals with fetching the events from the ics file and insert them into the calendar layout.*/
+    
 
     populateCalendar() {
       // temp variable for storing the events
       var temp = [];
-
+ 
       // parse the ics file received from the server
       const events = ical.sync.parseICS(this.calendarFile);
 
@@ -99,8 +105,9 @@ export default {
         });
       }
 
-      // copy the events to 'attributes[]' for sending them to the vue engine and hence show them on the interface
+      // assign events to 'attributes[]'
       this.attributes = temp;
+
     },
   },
 };

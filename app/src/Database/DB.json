@@ -25,6 +25,111 @@
                     "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/GrYBkznx.shu"
                 }
             ]
+        },
+        {
+            "Name": "IMR3",
+            "Groups": [
+                {
+                    "Name": "IMR3 Cyber sècuritè",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlaJna.shu"
+                },
+                {
+                    "Name": "IMR3 multimédia",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/4PnRvGn8.shu"
+                }
+            ]
+        },
+        {
+            "Name": "INFO1 S1",
+            "Groups": [
+                {
+                    "Name": "CPTD1TP1 INFO1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/83DjVwnx.shu"
+                },
+                {
+                    "Name": "CPTD1TP2 INFO1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9WQvrO36.shu"
+                },
+                {
+                    "Name": "CPTD2TP2 INFO1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/rYBe1P3x.shu"
+                },
+                {
+                    "Name": "CPTD2TP3 INFO1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/L3ZRdv3J.shu"
+                },
+                {
+                    "Name": "TSTD2TP3 INFO1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/E3p1LzYA.shu"
+                }
+            ]
+        },
+        {
+            "Name": "INFO1 S2",
+            "Groups": [
+                {
+                    "Name": "INFO1 S2 TD1TP1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/LW1LbKna.shu"
+                },
+                {
+                    "Name": "INFO1 S2 TD1TP2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/o35pvXWR.shu"
+                },
+                {
+                    "Name": "INFO1 S2 TD2TP2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/V3LBJmnA.shu"
+                },
+                {
+                    "Name": "INFO1 S2 TD2TP3",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/v3VmZNWb.shu"
+                }
+            ]
+        },
+        {
+            "Name": "INFO2",
+            "Groups": [
+                {
+                    "Name": "INFO2 G1 TP1",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/4PnR2on8.shu"
+                },
+                {
+                    "Name": "INFO2 G1 TP2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYaj8Knl.shu"
+                },
+                {
+                    "Name": "INFO2 G2 TP2",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/KYNAkg3v.shu"
+                },
+                {
+                    "Name": "INFO2 G2 TP3",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/kYk1z0WA.shu"
+                }
+            ]
+        },
+        {
+            "Name": "INFO3",
+            "Groups": [
+                {
+                    "Name": "INFO3 Cyber sécurite",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/MYzgNenZ.shu"
+                },
+                {
+                    "Name": "INFO3 AI",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/rv3VGKYb.shu"
+                },
+                {
+                    "Name": "INFO3 MSIF",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/V3LP4z3A.shu"
+                },
+                {
+                    "Name": "INFO3 Pro+Long Cyber-sécurite",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/pZYj00WB.shu"
+                },
+                {
+                    "Name": "INFO3 Pro+Long IA",
+                    "URL": "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/rY641gWz.shu"
+                }
+            ]
         }
     ]
 }

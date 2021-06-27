@@ -46,6 +46,7 @@ This page deals with displaying the calendar pannel by which the client select w
     <CalendarLayout
       v-bind:ScheduleSelected="ScheduleSelected"
       v-bind:calendarFile="calendarFile"
+      :key="componentKey"
     />
   </div>
 </template>
@@ -77,9 +78,26 @@ export default {
       listFaculties: Db,
       // for storing the file fetched from the server
       calendarFile: "",
+
+      componentKey: 0,
     };
   },
+
   methods: {
+
+    /* ***********************************************************************
+    *************************** RELOAD COMPONENT *****************************
+    **************************************************************************
+
+    The function deals with changing the 'key' of the component 'CalendarLayour'.
+    This causes a reload of the component that in turns delete the previous events in the 'CalendarLayout'.*/
+
+    forceRerender: function() {
+      this.componentKey += 1
+      console.log("reload");
+    },
+
+
     /* ***********************************************************************
     *************************** FETCH CALENDAR *******************************
     **************************************************************************
@@ -88,6 +106,11 @@ export default {
 
     fetchCalendar: function () {
       try {
+
+        // removes previous events from the calendar
+        this.forceRerender();
+
+        // set the address for fetching the calendar
         const resourse = "http://localhost:3001/schedule/" + this.SelectedFaculty + "/" + this.SelectedGroup;
 
         axios
