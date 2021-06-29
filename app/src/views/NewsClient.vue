@@ -1,20 +1,40 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <div class="channel1">
-        <button><h2>Channel 1</h2></button> 
-      </div>
-      <div class="channel2">
-        <h2> Channel 2</h2>
-      </div>
+      <button id="channel" @click="setChannel('channel1')"><h2>Channel #1</h2></button>
+      <button id="channel" @click="setChannel('channel2')"><h2>Channel #2</h2></button>
     </div>
     <div class="chat">
-        <div class="sendMessage">
+      <!-- Here we show the messages 
+      TO DO : 
+        1 - fetch the old one from the server 
+        2 - queue the new one
+      -->
 
-        </div>
-      </div>
+    </div>
   </div>
 </template>
+
+<script>
+
+export default {
+
+  data() {
+    return {
+      channel: '',
+      message: ''
+    };
+  },
+  sockets: {
+    connect() {
+      console.log('socket connected')
+    }
+  },
+  methods: {
+    
+  }
+};
+</script>
 
 <style scoped>
 .chatroom {
@@ -34,10 +54,26 @@
   text-align: center;
 }
 
+#channel {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid rgb(0, 0, 0);
+}
+
+button:hover {
+  color: rgb(117, 108, 108);
+  cursor: pointer;
+}
+
+button:active {
+  background-color: rgba(255, 255, 255, 0.952);
+  outline: none;
+  border:none;
+}
+
 .channels {
-min-height: 400px;
+  min-height: 400px;
   width: 20%;
-  height: 200px;
   background: rgba(202, 198, 198, 0.781);
   float: left;
 }
@@ -45,7 +81,6 @@ min-height: 400px;
 .chat {
   min-height: 400px;
   margin-left: 20%;
-  height: 200px;
   background: rgba(0, 0, 0, 0.062);
 }
 

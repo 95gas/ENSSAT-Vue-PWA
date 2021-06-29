@@ -27,14 +27,14 @@ async function updateCalendar( URL, path, fileName ) {
         else {
 
             // store calendar
-            const calendar = icalGenerator({ name: 'test' });
+            const calendar = icalGenerator();
 
             for (let k in data) {
                 if (data.hasOwnProperty(k)) {
                     var ev = data[k];
                     if (data[k].type == 'VEVENT') {
                         calendar.createEvent({
-                            start: ev.start,   //ev.start.getDate()   //ev.start.getMonth()  //ev.start.toLocaleTimeString('en-GB')
+                            start: ev.start,
                             end: ev.end,
                             summary: ev.summary,
                             description: ev.description,

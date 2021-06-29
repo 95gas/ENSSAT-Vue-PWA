@@ -14,31 +14,37 @@ async function StartChat(io) {
     console.log(" --> Socket launched ... ")
 
     // cretae database for storing the messages
-    let fileName = 'conversation';
+    let fileName ='conversation.json';
+    let path = 'public/Database/' + fileName;
 
-    conversation.create(fileName).then(message => {
+    var MessageInstance;
+
+    conversation.createDB(path).then(message => {
         MessageInstance = message;
     })
 
     io.on('connection', (socket) => {
 
         // when the admin emits 'new message', this listens and executes
-        socket.on('new message', (data) => {
+        socket.on('channel1', (data) => {
 
             //read user message
             UserName = socket.username;
-            UserMsg = data;
+            UserMsg = data.message;
+
+            console.log(UserMsg);
+            console.log("socket is " + socket.username);
 
             // ======================= STORES MESSAGES ==============================
 
-            MessageInstance.addMsg(Username, UserMsg);
+            MessageInstance.addMsg(UserName, UserMsg);
 
             // ======================================================================
 
             // broadcast the msg to all the clients connected ( to the same channel )
-            socket.broadcast.emit('new message', {
+            socket.broadcast.emit('channel1', {
                 username: socket.username,
-                message: data
+                message: data.message
             });
         });
 
@@ -46,11 +52,15 @@ async function StartChat(io) {
 
         socket.on('online', function (data) {
 
-            socket.username = username;
+            socket.username = data.username;
+
+            console.log("An user got connected")
+
+            console.log(socket.username);
 
             // ======================= DISPLAY OFFLINE MESSAGES ==============================
 
-            fs.readFile('test.json', (err, data) => {
+            /*fs.readFile('test.json', (err, data) => {
                 if (err) throw err;
 
                 let fullConversation = JSON.parse(data);
@@ -60,7 +70,7 @@ async function StartChat(io) {
                 fullConversation.forEach(function(message) { 
                          socket.emit('message', message);
                });
-            });
+            });*/
 
             // =================================================================================
         });

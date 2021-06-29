@@ -1,6 +1,5 @@
-$(function() {
+
   const FADE_TIME = 150; // ms
-  const TYPING_TIMER_LENGTH = 400; // ms
   const COLORS = [
     '#e21400', '#91580f', '#f8a700', '#f78b00',
     '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
@@ -8,19 +7,15 @@ $(function() {
   ];
 
 
-  const $window = $(window);
-  const $messages = $('.messages');           // Messages area
 
-  // TO DO: INITIALIZE IT TO THE MSG 
-  const $inputMessage = $('.inputMessage');   // Input message input box
+  const $messages = ('.chat');           // Messages area
 
-  const socket = io();
+
+
 
   // Prompt for setting a username
   let username;
-  let connected = false;
-  let typing = false;
-  let lastTypingTime;
+  //let connected = false;
   
 
   // Sets the client's username
@@ -33,16 +28,7 @@ $(function() {
 
   // Sends a chat message
   const sendMessage = () => {
-    let message = $inputMessage.val();
-    // Prevent markup from being injected into the message
-    message = cleanInput(message);
-    // if there is a non-empty message and a socket connection
-    if (message && connected) {
-      $inputMessage.val('');
-      addChatMessage({ username, message });
-      // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
-    }
+    
   }
 
 
@@ -62,7 +48,7 @@ $(function() {
 
 
   // Adds the visual chat message to the message list
-  const addChatMessage = (data, options = {}) => {
+  function addChatMessage(data, options = {}){
     // Don't fade the message in if there is an 'X was typing'
     const $typingMessages = getTypingMessages(data);
     if ($typingMessages.length !== 0) {
@@ -141,17 +127,6 @@ $(function() {
     const index = Math.abs(hash % COLORS.length);
     return COLORS[index];
   }
-
-  // Keyboard events
-  $( window ).load(function() {
-    connected = true;
-    // Display the welcome message
-    const message = 'Welcome to the ChatRoom ';
-    log(message, {
-      prepend: true
-    });
-    //readBotMessage();
-  });
   
 
   $window.keydown(event => {
@@ -171,9 +146,8 @@ $(function() {
 
   // Socket events
 
-  // Whenever the server emits 'new message', update the chat body
+  /* Whenever the server emits 'new message', update the chat body
   socket.on('new message', (data) => {
     addChatMessage(data);
-  });
+  });*/
 
-});

@@ -14,10 +14,13 @@
     "core-js": "^3.6.5",
     "node-ical": "^0.13.0",
     "register-service-worker": "^1.7.1",
+    "socket.io-client": "^4.1.2",
     "v-calendar": "^3.0.0-alpha.5",
     "vue": "^3.0.0",
+    "vue-ics": "^0.1.4",
     "vue-meta": "^3.0.0-alpha.2",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-socket.io-extended": "^5.0.0-alpha.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

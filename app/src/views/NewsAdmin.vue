@@ -1,15 +1,29 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button id="channel" @click="setChannel('channel1')"><h2>Channel #1</h2></button>
-      <button id="channel" @click="setChannel('channel2')"><h2>Channel #2</h2></button>
+      <button id="channel" @click="setChannel('channel1')">
+        <h2>Channel #1</h2>
+      </button>
+      <button id="channel" @click="setChannel('channel2')">
+        <h2>Channel #2</h2>
+      </button>
     </div>
-    <div class="chat"></div>
+    <div class="chat">
+      <!-- Here we show the messages 
+      TO DO : 
+        1 - fetch the old one from the server 
+        2 - queue the new one
+      -->
+    </div>
     <div class="sendMessage">
       <div class="center">
-        <input type="text" v-model="message" placeholder="  Send message ... " />
+        <input
+          type="text"
+          v-model="message"
+          placeholder="  Send message ... "
+        />
         <div class="btn">
-        <button id ="send" @click="sendMsg">SEND</button>
+          <button id="send" @click="sendMsg">SEND</button>
         </div>
       </div>
     </div>
@@ -17,22 +31,36 @@
 </template>
 
 <script>
+//import MessageUtility from "../assets/lib/main.js"
+
+
 export default {
 
   data() {
     return {
-      channel: '',
-      message: ''
+      SelectedChannel: "",
+      message: "",
+      username: "Admin",
     };
   },
-  methods: {
-    setChannel(channel){
-      this.channel = channel;
+  sockets: {
+    connect() {
+      console.log("socket connected");
+       this.$socket.client.emit("online", {username: this.username});
     },
-    sendMsg(){
-      // send msg to the client for sending it to the server
-    }
-  }
+  },
+  methods: {
+    sendMsg() {
+      // TO DO : add message to the list
+      const data = { username: "", message: this.message };
+
+      // this.$socket.client is `socket.io-client` instance
+      this.$socket.client.emit(this.SelectedChannel, data);
+    },
+    setChannel(channel) {
+      this.SelectedChannel = channel;
+    },
+  },
 };
 </script>
 
@@ -68,7 +96,7 @@ button:hover {
 button:active {
   background-color: rgba(255, 255, 255, 0.952);
   outline: none;
-  border:none;
+  border: none;
 }
 
 .channels {
@@ -103,17 +131,17 @@ input:focus {
   border-radius: 3px;
 }
 
-.btn{
-  margin-left:81%;
-  border:none;
+.btn {
+  margin-left: 81%;
+  border: none;
 }
 
 .btn:active {
-  border:none;
-  }
+  border: none;
+}
 
 #send {
-  width: 99%;
+  width: 95%;
   height: 40px;
   border-radius: 3px;
   margin-top: 6px;

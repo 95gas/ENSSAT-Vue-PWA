@@ -15,6 +15,7 @@ class Message{
       } else {
         console.log("ERROR : Msg cannot be null")
       }
+      this.date = data.date;
     }
   }
   

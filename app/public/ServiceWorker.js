@@ -8,10 +8,13 @@ const toCache = [
   '/',
   '/src/Database/DB.json',
   '/src/App.vue',
-  '/src/views/About.vue',
+  '/src/views/NewsAdmin.vue',
+  '/src/views/NewsClient.vue',
   '/src/views/Home.vue',
   '/src/router/index.js',
-  '/src/components/layout/Header.vue'
+  '/src/components/layout/Header.vue',
+  '/src/components/CalendarPannel.vue',
+  '/src/components/CalendarLayout.vue'
 ];
 
 self.addEventListener('install', function(event) {

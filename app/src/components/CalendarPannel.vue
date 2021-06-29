@@ -78,13 +78,12 @@ export default {
       listFaculties: Db,
       // for storing the file fetched from the server
       calendarFile: "",
-       // key for the component 'CalendarLayout'
+      // key for the component 'CalendarLayout'
       componentKey: 0,
     };
   },
 
   methods: {
-
     /* ***********************************************************************
     *************************** RELOAD COMPONENT *****************************
     **************************************************************************
@@ -92,10 +91,9 @@ export default {
     The function deals with changing the 'key' of the component 'CalendarLayour'.
     This causes a reload of the component that in turns delete the previous events in the 'CalendarLayout'.*/
 
-    forceRerender: function() {
-      this.componentKey += 1
+    forceRerender: function () {
+      this.componentKey += 1;
     },
-
 
     /* ***********************************************************************
     *************************** FETCH CALENDAR *******************************
@@ -104,31 +102,60 @@ export default {
     The function deals with fetching the calendar from server.*/
 
     fetchCalendar: function () {
+
+      // variable to check if a connection to internet exists
+      const isOnline = navigator.onLine;
+
       try {
+        // set the name of the group selected
+        this.ScheduleSelected =
+          this.listFaculties.Faculty[this.SelectedFaculty].Groups[
+            this.SelectedGroup
+          ].Name;
 
-        // removes previous events from the calendar
-        this.forceRerender();
+        if (isOnline) {  // if we are connected to internet
 
-        // set the address for fetching the calendar
-        const resourse = "http://localhost:3001/schedule/" + this.SelectedFaculty + "/" + this.SelectedGroup;
+          this.forceRerender();
 
-        axios
-          // send request to the server
-          .get(resourse)
+          // retrieve it from server and update the one that was stored
+          // set the address for fetching the calendar
+          const resourse =
+            "http://localhost:3001/schedule/" +
+            this.SelectedFaculty +
+            "/" +
+            this.SelectedGroup;
 
-          .then((response) => {
+          axios
+            // send request to the server
+            .get(resourse)
 
-            // fetch the ics file sent back by the server
-            this.calendarFile = response.data;
+            .then((response) => {
+              // fetch the ics file sent back by the server
+              this.calendarFile = response.data;
 
-            // set the name of the group selected
-            this.ScheduleSelected = this.listFaculties.Faculty[this.SelectedFaculty].Groups[this.SelectedGroup].Name;
+              localStorage.setItem(this.ScheduleSelected, this.calendarFile);
 
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          });
+              console.log("calendar retrieve from server");
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error);
+            });
+
+        } else { // if we are offline
+
+          // use the one stored in localStorage
+
+          //this.forceRerender();  //---> TO DO: CHECK WHY OFFLINE THIS IS NOT WORKING. IT prevents CalendarLayout from reading the calendar change
+
+          this.calendarFile = localStorage.getItem(this.ScheduleSelected);
+
+          console.log("calendar retrieve from localStorage");
+
+          if (this.calendarFile == null) {
+            console.log("Check internet connection");
+          }
+        }
       } catch (err) {
         console.log(err);
       }

@@ -19,14 +19,15 @@ const server = app.listen(port, () => {
 })
 
 
-//********************************************************************/
-//***************** Retrieve and Update Calendars ********************/
-//********************************************************************/
+//**************************************************************************/
+//***************** Retrieve and Update Calendars DAILY ********************/
+//**************************************************************************/
 // In this section we download and update the calendars if we are connected to internet
 
+// Import tools for stores the calendars
 var calendarTools = require('./public/lib/UtilityCalendar.js');
 
-// check if internet connection exists
+// import package for checking if an internet connection exists
 const checkInternetConnected = require('check-internet-connected');
 
 const configs = {
@@ -35,39 +36,51 @@ const configs = {
     domain: 'google.com'//the domain to check DNS record of
 }
 
-checkInternetConnected(configs)
-    .then((result) => {
+// ===================================================================
+// == RUN THE TASK DAILY AT 01:00 at Europe/Rome timezone
+// ===================================================================
 
-        console.log("Connection available");
+var cron = require('node-cron');
 
-        // ========================================================
-        // == FETCH ALL THE CALENDARS OF THE FACULTIES PER GROUP ==
-        // ========================================================
+cron.schedule('0 1 * * *', () => {
 
-        // import database
-        const databases = require('./public/Database/DB.json');
+    checkInternetConnected(configs)
+        .then((result) => {
 
-        databases.Faculty.forEach(faculty => {
+            console.log("Connection available");
 
-            // retrieve name faculty
-            const degree = faculty.Name;
+            // ==================================================================
+            // == FETCH and STORE ALL THE CALENDARS OF THE FACULTIES PER GROUP ==
+            // ==================================================================
 
-            faculty.Groups.forEach(group => { // per each group of the faculty
+            // import database
+            const databases = require('./public/Database/DB.json');
 
-                // retrieve URL and name of the group
-                const URL = group.URL;
-                const fileName = group.Name;
+            databases.Faculty.forEach(faculty => {
 
-                // generate calendar for each group
-                const saveTo = "./public/calendars/" + degree + "/";
-                calendarTools.updateCalendar(URL, saveTo, fileName);
+                // retrieve name faculty
+                const degree = faculty.Name;
+
+                faculty.Groups.forEach(group => { // per each group of the faculty
+
+                    // retrieve URL and name of the group
+                    const URL = group.URL;
+                    const fileName = group.Name;
+
+                    // generate calendar for each group
+                    const saveTo = "./public/calendars/" + degree + "/";
+                    calendarTools.updateCalendar(URL, saveTo, fileName);
+                });
             });
-        });
-        // ================= END CALENDAR FETCH ====================
+            // ================= END CALENDAR FETCH ====================
 
-    }).catch((err) => {
-        console.log("No connection", err);
-    })
+        }).catch((err) => {
+            console.log("No connection", err);
+        })
+}, {
+    scheduled: true,
+    timezone: "Europe/Rome"
+});
 
 
 
@@ -77,15 +90,24 @@ checkInternetConnected(configs)
 
 // Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
-var SendReceiveMessages = require('./public/lib/SocketServer.js');
+var SendReceiveMessages = require('./public/lib/SocketUtility.js');
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server,
+
+    // option to allow request from other server to communicate with this server
+    {
+        cors: {
+            origin: true,
+            methods: ["GET", "POST"]
+        }
+    }
+);
 
 SendReceiveMessages.StartChat(io);
 
 
 //************************************************************/
-//********************** GET CALENDAR ***********************/ 
+//********************** GET CALENDAR ***********************/
 //***********************************************************/
 
 // import cors
@@ -112,7 +134,7 @@ app.get('/schedule/:faculty/:group', (req, res) => {
     var pathCalendar = "./public/calendars/" + faculty + "/" + fileName;
 
     const path = require('path');
-    var absolutePath = path.join( __dirname, pathCalendar);
+    var absolutePath = path.join(__dirname, pathCalendar);
 
     // send calendar back to the client
     res.sendFile(absolutePath, function (err) {
