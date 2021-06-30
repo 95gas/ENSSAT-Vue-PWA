@@ -131,13 +131,13 @@ app.use(cors());
 //************************************************************/
 //********************** GET MESSAGES ***********************/
 //***********************************************************/ 
-app.get('/News/admin/:channel', (req, res) => {
+app.get('/getMessages/:channel', (req, res) => {
 
     const channel = req.params['channel'];
 
     const JSONdata = MessageInstance.getMsgs(channel);
-    res.json(JSONdata);
 
+    res.json(JSONdata);
 })
 
 

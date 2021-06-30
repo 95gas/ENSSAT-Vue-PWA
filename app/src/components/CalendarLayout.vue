@@ -41,9 +41,6 @@ This page deals with displaying the calendar on the Home page.
 <script>
 // import node-ical for parsing the .ics calendar
 import ical from "node-ical";
-//import { saveAs } from 'file-saver';
-
-
 
 export default {
   // fetch data from the parent component ( that is CalendarPannel.vue)

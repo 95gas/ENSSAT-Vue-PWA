@@ -1,38 +1,127 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button id="channel" @click="setChannel('channel1')"><h2>Channel #1</h2></button>
-      <button id="channel" @click="setChannel('channel2')"><h2>Channel #2</h2></button>
+      <button id="channel" @click="getMessagesList('channel1')">
+        <h2>Channel #1</h2>
+      </button>
+      <button id="channel" @click="getMessagesList('channel2')">
+        <h2>Channel #2</h2>
+      </button>
     </div>
     <div class="chat">
-      <!-- Here we show the messages 
-      TO DO : 
-        1 - fetch the old one from the server 
-        2 - queue the new one
-      -->
-
+      <DisplayAllMessages :key="componentKey" v-bind:messages="messages" />
     </div>
   </div>
 </template>
 
 <script>
+import DisplayAllMessages from "../components/DisplayAllMessages.vue";
+
+// import axios for the communication with the server
+import axios from "axios";
 
 export default {
-
+  components: {
+    DisplayAllMessages,
+  },
+  mounted() {
+    this.getMessagesList("channel1");
+  },
+  // watch on messages
   data() {
     return {
-      channel: '',
-      message: ''
+      messages: [],
+      SelectedChannel: "channel1",
+      myMessage: "",
+      username: "User",
+      componentKey: 0,
+      isConnected: true,
     };
+  },
+  watch: {
+    isConnected: function () {
+      if (!this.isConnected) {
+        // TO DO: SHOW NO CONNECTION ERROR
+        console.log("Connection lost..");
+      }
+    },
   },
   sockets: {
     connect() {
-      console.log('socket connected')
-    }
+      console.log("socket connected");
+      this.$socket.client.emit("online", { username: this.username });
+    },
+    // Fired when the server sends something on the "messageChannel" channel.
+    newMessage(data) {
+      if (this.SelectedChannel == data.channel) {
+        this.messages.push(data);
+
+        this.forceRerender();
+      }
+    },
   },
   methods: {
-    
-  }
+    forceRerender: function () {
+      this.componentKey += 1;
+    },
+    setChannel(channel) {
+      this.SelectedChannel = channel;
+    },
+    getMessagesList(channel) {
+      this.setChannel(channel);
+
+      // variable to check if a connection to internet exists
+      const isOnline = navigator.onLine;
+
+      var oldMessages;
+
+      if (isOnline) {
+        // if we are connected to internet
+        this.isConnected = true;
+
+        // retrieve it from server and update the one that was stored
+        // set the address for fetching the previous messages
+        const resourse =
+          "http://localhost:3001/getMessages/" + this.SelectedChannel;
+
+        axios
+          // send request to the server
+          .get(resourse)
+
+          .then((response) => {
+            // fetch the JSON data sent back by the server
+            oldMessages = response.data;
+
+            this.messages = oldMessages;
+
+            localStorage.setItem(
+              this.SelectedChannel,
+              JSON.stringify(oldMessages)
+            );
+
+            console.log("Messages retrieved from server");
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+      } else {
+        // if we are offline
+        this.isConnected = false;
+
+        oldMessages = localStorage.getItem(this.SelectedChannel);
+
+        console.log("messages retrieve from localStorage");
+
+        if (oldMessages == null) {
+          console.log("Check internet connection");
+        } else {
+          // convert the string in JSON
+          this.messages = JSON.parse(oldMessages);
+        }
+      }
+    },
+  },
 };
 </script>
 
@@ -68,11 +157,10 @@ button:hover {
 button:active {
   background-color: rgba(255, 255, 255, 0.952);
   outline: none;
-  border:none;
+  border: none;
 }
 
 .channels {
-  min-height: 400px;
   width: 20%;
   background: rgba(202, 198, 198, 0.781);
   float: left;
@@ -83,5 +171,4 @@ button:active {
   margin-left: 20%;
   background: rgba(0, 0, 0, 0.062);
 }
-
 </style>

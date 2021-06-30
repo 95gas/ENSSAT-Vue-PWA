@@ -20,7 +20,11 @@ class Message{
       } else {
         console.log("ERROR : Channel cannot be null")
       }
-      this.date = data.date;
+      if(undefined != data.date) {
+        this.date = data.date;
+      } else {
+        console.log("ERROR : Date cannot be null")
+      }
     }
   }
   

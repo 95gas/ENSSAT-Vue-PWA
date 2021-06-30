@@ -16,23 +16,26 @@ async function StartChat(io, MessageInstance) {
 
         // when the admin emits 'new message', this listens and executes
 
-        socket.on('new message',(data) => {
+        socket.on('newMessage',(data) => {
 
             //read user message data
             const UserName = socket.username;
             const UserMsg = data.content;
             const channel = data.channel;
+            const Date = data.date;
 
             // ======================= STORES MESSAGES ==============================
 
-            MessageInstance.addMsg(UserName, UserMsg, channel);
+            MessageInstance.addMsg(UserName, UserMsg, channel, Date);
 
             // ======================================================================
 
             // broadcast the msg to all the clients connected ( to the same channel )
-            socket.broadcast.emit(channel, {
+            socket.broadcast.emit("newMessage", {
                 username: socket.username,
-                content: UserMsg
+                content: UserMsg,
+                channel: channel,
+                date: Date
             });
         });
 
@@ -42,7 +45,7 @@ async function StartChat(io, MessageInstance) {
 
             socket.username = data.username;
 
-            console.log("An user got connected")
+            console.log("An user just got connected")
 
         });
     });

@@ -46,7 +46,15 @@ export default {
       myMessage: "",
       username: "Admin",
       componentKey: 0,
+      isConnected: true,
     };
+  },
+  watch: {
+    isConnected: function () {
+      if (!this.isConnected) {
+        console.log("Connection lost..");
+      }
+    },
   },
   sockets: {
     connect() {
@@ -60,29 +68,31 @@ export default {
     },
 
     sendMsg() {
-      const now = new Date();
-      const thisMoment = now.toLocaleString("en-GB", {
-        timeZone: "UTC",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+      if (this.isConnected) {
+        const now = new Date();
+        const thisMoment = now.toLocaleString("en-GB", {
+          timeZone: "UTC",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
 
-      const data = {
-        username: "Admin",
-        content: this.myMessage,
-        channel: this.SelectedChannel,
-        date: thisMoment,
-      };
+        const data = {
+          username: "Admin",
+          content: this.myMessage,
+          channel: this.SelectedChannel,
+          date: thisMoment,
+        };
 
-      this.messages.push(data);
+        this.messages.push(data);
 
-      this.forceRerender();
+        this.forceRerender();
 
-      // this.$socket.client is `socket.io-client` instance
-      this.$socket.client.emit("new message", data);
+        // this.$socket.client is `socket.io-client` instance
+        this.$socket.client.emit("newMessage", data);
+      }
     },
     setChannel(channel) {
       this.SelectedChannel = channel;
@@ -97,11 +107,12 @@ export default {
 
       if (isOnline) {
         // if we are connected to internet
+        this.isConnected = true;
 
         // retrieve it from server and update the one that was stored
         // set the address for fetching the previous messages
         const resourse =
-          "http://localhost:3001/News/admin/" + this.SelectedChannel;
+          "http://localhost:3001/getMessages/" + this.SelectedChannel;
 
         axios
           // send request to the server
@@ -126,9 +137,11 @@ export default {
           });
       } else {
         // if we are offline
+        this.isConnected = false;
+
         oldMessages = localStorage.getItem(this.SelectedChannel);
 
-        console.log("calendar retrieve from localStorage");
+        console.log("messages retrieve from localStorage");
 
         if (oldMessages == null) {
           console.log("Check internet connection");
