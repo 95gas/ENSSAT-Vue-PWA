@@ -103,18 +103,48 @@ const io = require('socket.io')(server,
     }
 );
 
-SendReceiveMessages.StartChat(io);
+const conversation = require('./public/lib/LowDbUtilities.js');
+
+ // cretae database for storing the messages
+ let fileName ='conversation.json';
+ let path = 'public/Database/' + fileName;
+
+ var MessageInstance;
+
+ conversation.createDB(path).then(message => {
+     MessageInstance = message;
+
+     SendReceiveMessages.StartChat(io, MessageInstance);
+
+ })
 
 
-//************************************************************/
-//********************** GET CALENDAR ***********************/
-//***********************************************************/
 
 // import cors
 const cors = require("cors");
 
 // use cors
 app.use(cors());
+
+
+
+//************************************************************/
+//********************** GET MESSAGES ***********************/
+//***********************************************************/ 
+app.get('/News/admin/:channel', (req, res) => {
+
+    const channel = req.params['channel'];
+
+    const JSONdata = MessageInstance.getMsgs(channel);
+    res.json(JSONdata);
+
+})
+
+
+
+//************************************************************/
+//********************** GET CALENDAR ***********************/
+//***********************************************************/
 
 app.get('/schedule/:faculty/:group', (req, res) => {
 

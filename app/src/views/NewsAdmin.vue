@@ -1,25 +1,21 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button id="channel" @click="setChannel('channel1')">
+      <button id="channel" @click="getMessagesList('channel1')">
         <h2>Channel #1</h2>
       </button>
-      <button id="channel" @click="setChannel('channel2')">
+      <button id="channel" @click="getMessagesList('channel2')">
         <h2>Channel #2</h2>
       </button>
     </div>
     <div class="chat">
-      <!-- Here we show the messages 
-      TO DO : 
-        1 - fetch the old one from the server 
-        2 - queue the new one
-      -->
+      <DisplayAllMessages :key="componentKey" v-bind:messages="messages" />
     </div>
     <div class="sendMessage">
       <div class="center">
         <input
           type="text"
-          v-model="message"
+          v-model="myMessage"
           placeholder="  Send message ... "
         />
         <div class="btn">
@@ -31,34 +27,116 @@
 </template>
 
 <script>
-//import MessageUtility from "../assets/lib/main.js"
+import DisplayAllMessages from "../components/DisplayAllMessages.vue";
 
+// import axios for the communication with the server
+import axios from "axios";
 
 export default {
-
+  components: {
+    DisplayAllMessages,
+  },
+  mounted() {
+    this.getMessagesList("channel1");
+  },
   data() {
     return {
-      SelectedChannel: "",
-      message: "",
+      messages: [],
+      SelectedChannel: "channel1",
+      myMessage: "",
       username: "Admin",
+      componentKey: 0,
     };
   },
   sockets: {
     connect() {
       console.log("socket connected");
-       this.$socket.client.emit("online", {username: this.username});
+      this.$socket.client.emit("online", { username: this.username });
     },
   },
   methods: {
+    forceRerender: function () {
+      this.componentKey += 1;
+    },
+
     sendMsg() {
-      // TO DO : add message to the list
-      const data = { username: "", message: this.message };
+      const now = new Date();
+      const thisMoment = now.toLocaleString("en-GB", {
+        timeZone: "UTC",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      const data = {
+        username: "Admin",
+        content: this.myMessage,
+        channel: this.SelectedChannel,
+        date: thisMoment,
+      };
+
+      this.messages.push(data);
+
+      this.forceRerender();
 
       // this.$socket.client is `socket.io-client` instance
-      this.$socket.client.emit(this.SelectedChannel, data);
+      this.$socket.client.emit("new message", data);
     },
     setChannel(channel) {
       this.SelectedChannel = channel;
+    },
+    getMessagesList(channel) {
+      this.setChannel(channel);
+
+      // variable to check if a connection to internet exists
+      const isOnline = navigator.onLine;
+
+      var oldMessages;
+
+      if (isOnline) {
+        // if we are connected to internet
+
+        // retrieve it from server and update the one that was stored
+        // set the address for fetching the previous messages
+        const resourse =
+          "http://localhost:3001/News/admin/" + this.SelectedChannel;
+
+        axios
+          // send request to the server
+          .get(resourse)
+
+          .then((response) => {
+            // fetch the JSON data sent back by the server
+            oldMessages = response.data;
+
+            this.messages = oldMessages;
+
+            localStorage.setItem(
+              this.SelectedChannel,
+              JSON.stringify(oldMessages)
+            );
+
+            console.log("Messages retrieved from server");
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+      } else {
+        // if we are offline
+        oldMessages = localStorage.getItem(this.SelectedChannel);
+
+        console.log("calendar retrieve from localStorage");
+
+        if (oldMessages == null) {
+          console.log("Check internet connection");
+        } else {
+          // convert the string in JSON
+          this.messages = JSON.parse(oldMessages);
+        }
+      }
     },
   },
 };
@@ -100,7 +178,6 @@ button:active {
 }
 
 .channels {
-  min-height: 400px;
   width: 20%;
   background: rgba(202, 198, 198, 0.781);
   float: left;

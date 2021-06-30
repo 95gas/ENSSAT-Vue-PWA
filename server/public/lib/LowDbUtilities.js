@@ -4,8 +4,9 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 
 class MessageService{
 	constructor(){
-		this.idCpt = 1;
-		this.db = {Chat:[]};
+		this.idC1 = 1;
+		this.idC2 = 1;
+		this.db = {};
 	}
 
 	static async createDB(fileName){ 
@@ -15,20 +16,30 @@ class MessageService{
 		return service;
 	}
 
-	addMsg(user, msg){
-		const id = this.idCpt;
+	addMsg(user, msg, channel){
+		const id1 = this.idC1;
+		const id2 = this.idC2;
+		var id;
+		if (channel == "channel1"){
+			id = id1;
+			this.idC1++;
+		}
+		else if (channel == "channel2"){
+			id = id2;
+			this.idC2++;
+		}
 		const now = new Date();
+		const thisMoment = now.toLocaleString('en-GB', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
   		let newMsg;
-  		if(undefined !== (newMsg = new Message({id:id,user:user,msg:msg,date:now}))){
-			this.db.get('Chat').push(newMsg).write();
-			this.idCpt++;
+  		if(undefined !== (newMsg = new Message({id:id, user:user, content:msg, channel: channel, date:thisMoment}))){
+			this.db.get(channel).push(newMsg).write();
 		}else{
 			throw Error("cannot insert null msg");
 		}
 	}
 
-	getTasks(){
-		return this.db.get('Chat').value();
+	getMsgs(channel){
+		return this.db.get(channel).value();
 
         // return here the first 100 messages 
 	}

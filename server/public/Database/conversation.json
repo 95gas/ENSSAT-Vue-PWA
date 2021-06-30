@@ -1,5 +1,30 @@
 {
-  "Chat": [
-    
+  "channel1": [
+    {
+      "id": 1,
+      "content": "test1 - C1",
+      "channel": "channel1",
+      "date": "30 June 2021, 17:08"
+    },
+    {
+      "id": 2,
+      "content": "test2 - C1",
+      "channel": "channel1",
+      "date": "30 June 2021, 17:08"
+    }
+  ],
+  "channel2": [
+    {
+      "id": 1,
+      "content": "test1 - C2",
+      "channel": "channel2",
+      "date": "30 June 2021, 17:08"
+    },
+    {
+      "id": 2,
+      "content": "test2 - C2",
+      "channel": "channel2",
+      "date": "30 June 2021, 17:09"
+    }
   ]
 }

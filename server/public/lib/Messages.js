@@ -10,10 +10,15 @@ class Message{
       } else {
         console.log("ERROR : Must specified Username")
       }
-      if(undefined != data.msg) {
-        this.msg = data.msg;
+      if(undefined != data.content) {
+        this.content = data.content;
       } else {
         console.log("ERROR : Msg cannot be null")
+      }
+      if(undefined != data.channel) {
+        this.channel = data.channel;
+      } else {
+        console.log("ERROR : Channel cannot be null")
       }
       this.date = data.date;
     }
