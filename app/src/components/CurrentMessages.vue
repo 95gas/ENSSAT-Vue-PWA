@@ -1,27 +1,25 @@
 <template>
-  <div class="other-message-body">
+  <div class="current-message-body">
     <div class="message-content">
       <div class="message-text">
-        <p class="message-username">{{ messages.user }}</p>
-        <p class="message-content">{{ messages.content }}</p>
+        <p class="message-username">{{ CurrentMsg.user }}</p>
+        <p ref="message-content">{{ CurrentMsg.content }}</p>
       </div>
-
-      <div
-        class="message-timestamp"
-        :style="{ 'justify-content': 'baseline' }"
-      >{{messages.date}}</div>
+      <div class="message-timestamp" :style="{ 'justify-content': 'baseline' }">
+        {{CurrentMsg.date}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["messages"],
+  props: ["CurrentMsg"],
 };
 </script>
 
 <style >
-.other-message-body {
+.current-message-body {
   display: flex;
   align-items: flex-end;
   padding-left: 10px;
@@ -33,6 +31,8 @@ export default {
   flex-direction: column;
   flex-grow: 1;
 }
+
+
 
 .message-timestamp {
   padding: 2px 7px;

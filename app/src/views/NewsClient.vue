@@ -1,15 +1,15 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1')" >
+      <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1'), resetCurrentMsgList()" >
         <h2>Channel #1</h2>
       </button>
-      <button v-bind:class="{ color : clicked == 'btn2'}" id="channel" @click="getMessagesList('channel2'), changeColor('btn2')">
+      <button v-bind:class="{ color : clicked == 'btn2'}" id="channel" @click="getMessagesList('channel2'), changeColor('btn2'), resetCurrentMsgList()">
         <h2>Channel #2</h2>
       </button>
     </div>
     <div class="chat">
-      <DisplayAllMessages :key="componentKey" v-bind:messages="messages" />
+      <DisplayAllMessages :key="componentKey" v-bind:messages="messages" v-bind:CurrentMsg="CurrentMsg" />
     </div>
   </div>
 </template>
@@ -31,12 +31,12 @@ export default {
   // watch on messages
   data() {
     return {
+      CurrentMsg: [],
       clicked: '',
       messages: [],
       SelectedChannel: "channel1",
       myMessage: "",
       username: "User",
-      componentKey: 0,
       isConnected: true,
     };
   },
@@ -56,9 +56,8 @@ export default {
     // Fired when the server sends something on the "messageChannel" channel.
     newMessage(data) {
       if (this.SelectedChannel == data.channel) {
-        this.messages.push(data);
-
-        this.forceRerender();
+        this.CurrentMsg.push(data);
+        console.log("Message received")
       }
     },
   },
@@ -66,8 +65,8 @@ export default {
     changeColor(btn){
       this.clicked = btn;
     },
-    forceRerender: function () {
-      this.componentKey += 1;
+    resetCurrentMsgList(){
+      this.CurrentMsg = []
     },
     setChannel(channel) {
       this.SelectedChannel = channel;

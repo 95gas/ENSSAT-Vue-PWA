@@ -23,20 +23,16 @@ async function StartChat(io, MessageInstance) {
             const UserMsg = data.content;
             const channel = data.channel;
             const Date = data.date;
+            const FullDate = data.FullDate;
 
             // ======================= STORES MESSAGES ==============================
 
-            MessageInstance.addMsg(UserName, UserMsg, channel, Date);
+            MessageInstance.addMsg(UserName, UserMsg, channel, Date, FullDate);
 
             // ======================================================================
 
             // broadcast the msg to all the clients connected ( to the same channel )
-            socket.broadcast.emit("newMessage", {
-                username: socket.username,
-                content: UserMsg,
-                channel: channel,
-                date: Date
-            });
+            socket.broadcast.emit("newMessage", data);
         });
 
         // send store messages when user is online ( or save it into a file on client side and load it as app is launched )

@@ -10,16 +10,26 @@
     >
       <OtherMessage v-bind:messages="message" />
     </div>
+    <div
+      v-for="(message, index) in CurrentMsg"
+      :key="index"
+      class="message-container"
+    >
+      <CurrentMessages v-bind:CurrentMsg="message" />
+    </div>
   </div>
 </template>
 
 <script>
 import OtherMessage from "./otherMessages.vue";
+import CurrentMessages from "./CurrentMessages.vue";
+
 export default {
   components: {
     OtherMessage,
+    CurrentMessages,
   },
-  props: ["messages"],
+  props: ["messages", "CurrentMsg"],
 };
 </script>
 
@@ -90,7 +100,6 @@ export default {
   height: 16px;
   margin: 5px 0 0 0;
 }
-
 
 @keyframes spin {
   0% {

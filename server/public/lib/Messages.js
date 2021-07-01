@@ -25,6 +25,11 @@ class Message{
       } else {
         console.log("ERROR : Date cannot be null")
       }
+      if(undefined != data.FullDate) {
+        this.FullDate = data.FullDate;
+      } else {
+        console.log("ERROR : FullDate cannot be null")
+      }
     }
   }
   

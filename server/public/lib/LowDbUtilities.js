@@ -16,7 +16,7 @@ class MessageService{
 		return service;
 	}
 
-	addMsg(user, msg, channel, Date){
+	addMsg(user, msg, channel, Date, FullDate){
 		const id1 = this.idC1;
 		const id2 = this.idC2;
 		var id;
@@ -29,7 +29,7 @@ class MessageService{
 			this.idC2++;
 		}
   		let newMsg;
-  		if(undefined !== (newMsg = new Message({id:id, user:user, content:msg, channel: channel, date:Date}))){
+  		if(undefined !== (newMsg = new Message({id:id, user:user, content:msg, channel: channel, date:Date , FullDate: FullDate}))){
 			this.db.get(channel).push(newMsg).write();
 		}else{
 			throw Error("cannot insert null msg");
@@ -38,7 +38,7 @@ class MessageService{
 
 	getMsgs(channel){
 		const NumMessages = 100;
-		const lastMessages = this.db.get(channel).filter({}).orderBy('date', 'desc').take(NumMessages).value();
+		const lastMessages = this.db.get(channel).filter({}).orderBy('FullDate', 'desc').take(NumMessages).value();
 		return lastMessages.reverse();
 
 	}

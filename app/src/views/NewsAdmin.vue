@@ -1,15 +1,15 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1')">
+      <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1'), resetCurrentMsgList()">
         <h2>Channel #1</h2>
       </button>
-      <button v-bind:class="{ color : clicked == 'btn2'}" id="channel" @click="getMessagesList('channel2'), changeColor('btn2')">
+      <button v-bind:class="{ color : clicked == 'btn2'}" id="channel" @click="getMessagesList('channel2'), changeColor('btn2'), resetCurrentMsgList()">
         <h2>Channel #2</h2>
       </button>
     </div>
     <div class="chat">
-      <DisplayAllMessages :key="componentKey" v-bind:messages="messages" />
+      <DisplayAllMessages v-bind:messages="messages" v-bind:CurrentMsg="CurrentMsg" />
     </div>
     <div class="sendMessage">
       <div class="center">
@@ -42,12 +42,12 @@ export default {
   },
   data() {
     return {
+      CurrentMsg: [],
       clicked: '',
       messages: [],
       SelectedChannel: "channel1",
       myMessage: "",
       username: "Admin",
-      componentKey: 0,
       isConnected: true,
     };
   },
@@ -56,25 +56,23 @@ export default {
       if (!this.isConnected) {
         console.log("Connection lost..");
       }
-    },
+    }
   },
   sockets: {
     // Fired when the server sends something on the "messageChannel" channel.
     newMessage(data) {
       if (this.SelectedChannel == data.channel) {
-        this.messages.push(data);
-        this.forceRerender();
+        this.CurrentMsg.push(data);
       }
     },
   },
   methods: {
+    resetCurrentMsgList(){
+      this.CurrentMsg = []
+    },
     changeColor(btn){
       this.clicked = btn;
     },
-    forceRerender: function () {
-      this.componentKey += 1;
-    },
-
     sendMsg() {
       if (this.isConnected) {
         const now = new Date();
@@ -88,15 +86,14 @@ export default {
         });
 
         const data = {
-          username: "Admin",
+          user: this.username,
           content: this.myMessage,
           channel: this.SelectedChannel,
           date: thisMoment,
+          FullDate: now
         };
 
-        this.messages.push(data);
-
-        this.forceRerender();
+        this.CurrentMsg.push(data);
 
         // this.$socket.client is `socket.io-client` instance
         this.$socket.client.emit("newMessage", data);
