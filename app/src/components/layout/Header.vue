@@ -7,19 +7,40 @@ This page deals with displaying the HEADER on the Home page.
 
 <template>
   <header class="header">
-    <h1>Schedule manager</h1>
-    <router-link to="/">Schedule</router-link> |
-    <router-link to="/News/admin">News</router-link>
+    <h1>{{ title }}</h1>
+    <div class="Navbar">
+      <div @click="setTitle('SCHEDULE VIEWER')">
+        <router-link to="/">Schedule</router-link>
+      </div>
+      |
+      <div @click="setTitle('NEWS PAGE')">
+        <router-link to="/News/admin"> News</router-link>
+      </div>
+    </div>
   </header>
 </template>
 
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      title: "SCHEDULE VIEWER",
+    };
+  },
+  methods: {
+    setTitle(Name) {
+      this.title = Name;
+    },
+  },
 };
 </script>
   
 <style scoped>
+.Navbar {
+  display: inline-flex;;
+}
+
 .header {
   background-color: black;
   color: white;
@@ -32,5 +53,6 @@ export default {
 .header a {
   color: white;
   padding-right: 5px;
+  padding-left: 5px;
 }
 </style>

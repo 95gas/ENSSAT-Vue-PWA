@@ -49,7 +49,7 @@ export default {
   overflow-wrap: break-word;
   text-align: left;
   font-size: 10px;
-  color: #bdb8b8;
+  color: #a9a2a2;
   width: 100%;
   display: flex;
   align-items: center;

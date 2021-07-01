@@ -7,20 +7,28 @@ This page is the first to be displayed as the app is launched.
 
 <template>
   <div class="app">
-    <Header /> <!-- the HEADER displays also the HOME.vue page -->
-    <router-view/>
+    <Header />
+    <!-- the HEADER displays also the HOME.vue page -->
+    <router-view />
   </div>
 </template>
 
 <script>
-  import Header from './components/layout/Header.vue';
-  
-  export default {
-    name: 'app',
-    components:{
-      Header
-    }
-  }
+import Header from "./components/layout/Header.vue";
+
+export default {
+  name: "app",
+  components: {
+    Header,
+  },
+  data() { return {username: "Admin"} },
+  sockets: {
+    connect() {
+      console.log("socket connected");
+      this.$socket.client.emit("online", { username: this.username });
+    },
+  },
+};
 </script>
 
 <style>

@@ -37,9 +37,10 @@ class MessageService{
 	}
 
 	getMsgs(channel){
-		return this.db.get(channel).value();
+		const NumMessages = 100;
+		const lastMessages = this.db.get(channel).filter({}).orderBy('date', 'desc').take(NumMessages).value();
+		return lastMessages.reverse();
 
-        // return here the first 100 messages 
 	}
 }
 

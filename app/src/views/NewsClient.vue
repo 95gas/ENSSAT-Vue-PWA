@@ -1,10 +1,10 @@
 <template>
   <div class="chatroom">
     <div class="channels">
-      <button id="channel" @click="getMessagesList('channel1')">
+      <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1')" >
         <h2>Channel #1</h2>
       </button>
-      <button id="channel" @click="getMessagesList('channel2')">
+      <button v-bind:class="{ color : clicked == 'btn2'}" id="channel" @click="getMessagesList('channel2'), changeColor('btn2')">
         <h2>Channel #2</h2>
       </button>
     </div>
@@ -26,10 +26,12 @@ export default {
   },
   mounted() {
     this.getMessagesList("channel1");
+    this.changeColor('btn1');
   },
   // watch on messages
   data() {
     return {
+      clicked: '',
       messages: [],
       SelectedChannel: "channel1",
       myMessage: "",
@@ -61,6 +63,9 @@ export default {
     },
   },
   methods: {
+    changeColor(btn){
+      this.clicked = btn;
+    },
     forceRerender: function () {
       this.componentKey += 1;
     },
@@ -69,6 +74,8 @@ export default {
     },
     getMessagesList(channel) {
       this.setChannel(channel);
+
+      this.clicked = true;
 
       // variable to check if a connection to internet exists
       const isOnline = navigator.onLine;
@@ -126,8 +133,11 @@ export default {
 </script>
 
 <style scoped>
+.color {
+  background-color: rgba(0, 0, 0, 0.062);
+}
 .chatroom {
-  background-color: #fff;
+  background-color: #eceef0;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -155,14 +165,13 @@ button:hover {
 }
 
 button:active {
-  background-color: rgba(255, 255, 255, 0.952);
+  background-color: rgba(0, 0, 0, 0.062);
   outline: none;
   border: none;
 }
 
 .channels {
   width: 20%;
-  background: rgba(202, 198, 198, 0.781);
   float: left;
 }
 

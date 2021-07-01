@@ -2,97 +2,32 @@
   "channel1": [
     {
       "id": 1,
-      "content": "test1 - C1",
+      "content": "test1",
       "channel": "channel1",
-      "date": "30 June 2021, 17:08"
-    },
-    {
-      "id": 2,
-      "content": "test2 - C1",
-      "channel": "channel1",
-      "date": "30 June 2021, 17:08"
-    },
-    {
-      "id": 1,
-      "content": "test3",
-      "channel": "channel1",
-      "date": "30 June 2021, 18:17"
-    },
-    {
-      "id": 2,
-      "content": "test4",
-      "channel": "channel1",
-      "date": "30 June 2021, 18:18"
-    },
-    {
-      "id": 1,
-      "user": "Admin",
-      "content": "test5",
-      "channel": "channel1",
-      "date": "30 June 2021, 18:21"
-    },
-    {
-      "id": 1,
-      "user": "Admin",
-      "content": "test6",
-      "channel": "channel1",
-      "date": "30 June 2021, 18:32"
-    },
-    {
-      "id": 1,
-      "user": "Admin",
-      "content": "test7",
-      "channel": "channel1",
-      "date": "30 June 2021, 19:15"
-    },
-    {
-      "id": 2,
-      "user": "Admin",
-      "content": "test8",
-      "channel": "channel1",
-      "date": "30 June 2021, 19:15"
+      "date": "1 July 2021, 16:41"
     }
   ],
   "channel2": [
     {
       "id": 1,
-      "content": "test1 - C2",
+      "user": "Admin",
+      "content": "test2",
       "channel": "channel2",
-      "date": "30 June 2021, 17:08"
-    },
-    {
-      "id": 2,
-      "content": "test2 - C2",
-      "channel": "channel2",
-      "date": "30 June 2021, 17:09"
+      "date": "1 July 2021, 16:42"
     },
     {
       "id": 1,
       "user": "Admin",
       "content": "test3",
       "channel": "channel2",
-      "date": "30 June 2021, 19:16"
+      "date": "1 July 2021, 16:43"
     },
     {
       "id": 2,
       "user": "Admin",
-      "content": "test8",
+      "content": "test4",
       "channel": "channel2",
-      "date": "30 June 2021, 19:16"
-    },
-    {
-      "id": 3,
-      "user": "User",
-      "content": "test9",
-      "channel": "channel2",
-      "date": "30 June 2021, 19:31"
-    },
-    {
-      "id": 4,
-      "user": "Admin",
-      "content": "test10",
-      "channel": "channel2",
-      "date": "30 June 2021, 19:33"
+      "date": "1 July 2021, 16:50"
     }
   ]
 }
