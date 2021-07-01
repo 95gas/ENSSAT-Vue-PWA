@@ -1,8 +1,5 @@
 <template>
   <div ref="containerMessageDisplay" class="container-message-display">
-    <div v-if="loading" class="loader">
-      <div class="message-loading"></div>
-    </div>
     <div
       v-for="(message, index) in messages"
       :key="index"

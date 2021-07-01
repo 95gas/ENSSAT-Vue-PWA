@@ -165,7 +165,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.062);
 }
 .chatroom {
-  background-color: #eceef0;
+  background-color: #f0f0f0;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
