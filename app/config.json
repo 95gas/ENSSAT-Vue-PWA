@@ -1,0 +1,7 @@
+{
+    "URL": 
+        {"domain": "http://localhost:3001",
+        "getMessages" : "/getMessages/",
+        "getCalendar" : "/schedule/"
+        }
+}

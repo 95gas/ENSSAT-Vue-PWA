@@ -55,8 +55,11 @@ This page deals with displaying the calendar pannel by which the client select w
 // import database
 import Db from "../Database/DB.json";
 
+// import config.json
+import config from "../../config.json";
+
 // import the CalendarLayut page
-import CalendarLayout from "../components/CalendarLayout.vue";
+import CalendarLayout from "./CalendarLayout.vue";
 
 // import axios for the communication with the server
 import axios from "axios";
@@ -102,28 +105,22 @@ export default {
     The function deals with fetching the calendar from server.*/
 
     fetchCalendar: function () {
-
       // variable to check if a connection to internet exists
       const isOnline = navigator.onLine;
 
       try {
         // set the name of the group selected
-        this.ScheduleSelected =
-          this.listFaculties.Faculty[this.SelectedFaculty].Groups[
-            this.SelectedGroup
-          ].Name;
+        this.ScheduleSelected = this.listFaculties.Faculty[this.SelectedFaculty].Groups[this.SelectedGroup].Name;
 
-        if (isOnline) {  // if we are connected to internet
+        if (isOnline) {
+          // if we are connected to internet
 
           this.forceRerender();
 
           // retrieve it from server and update the one that was stored
           // set the address for fetching the calendar
-          const resourse =
-            "http://localhost:3001/schedule/" +
-            this.SelectedFaculty +
-            "/" +
-            this.SelectedGroup;
+
+          const resourse = config.URL.domain + config.URL.getCalendar + this.SelectedFaculty + "/" + this.SelectedGroup;
 
           axios
             // send request to the server
@@ -141,8 +138,8 @@ export default {
               // handle error
               console.log(error);
             });
-
-        } else { // if we are offline
+        } else {
+          // if we are offline
 
           // use the one stored in localStorage
 
@@ -160,8 +157,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    }
-    
+    },
   },
 };
 </script>

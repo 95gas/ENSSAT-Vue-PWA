@@ -7,16 +7,12 @@ console.log("Server inialization... ");
 
 const express = require('express')
 const app = express()
-const port = 3001
+const port = process.env.PORT || 3001
+const cors = require("cors");                   // import cors
 
-// import cors
-const cors = require("cors");
-
-// use cors
-app.use(cors());
-
+app.use(cors());                                // for cors requests
 app.use(express.static("../app/public"));
-app.use(express.json()) // for parsing application/json
+app.use(express.json())                         // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // start server 
@@ -39,7 +35,7 @@ const checkInternetConnected = require('check-internet-connected');
 const configs = {
     timeout: 5000,      //timeout connecting to each try (default 5000)
     retries: 2,         //number of retries to do before failing (default 5)
-    domain: 'google.com'//the domain to check DNS record of
+    domain: 'google.com'//the domain to check the connection
 }
 
 // ===================================================================
@@ -111,7 +107,7 @@ const io = require('socket.io')(server,
 
 const conversation = require('./public/lib/LowDbUtilities.js');
 
- // cretae database for storing the messages
+ // create database for storing the messages
  let fileName ='conversation.json';
  let path = 'public/Database/' + fileName;
 

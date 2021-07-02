@@ -32,8 +32,6 @@ export default {
   flex-grow: 1;
 }
 
-
-
 .message-timestamp {
   padding: 2px 7px;
   border-radius: 15px;

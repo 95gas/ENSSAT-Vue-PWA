@@ -33,6 +33,9 @@ import DisplayAllMessages from "../components/DisplayAllMessages.vue";
 // import axios for the communication with the server
 import axios from "axios";
 
+// import config.json
+import config from "../../config.json";
+
 export default {
   components: {
     DisplayAllMessages
@@ -97,8 +100,9 @@ export default {
     sendMsg() {
       if (this.isConnected) {
         const now = new Date();
+
+        // to set the date in french, set 'fr-FR' instead of 'en-GB'
         const thisMoment = now.toLocaleString("en-GB", {
-          timeZone: "UTC",
           year: "numeric",
           month: "long",
           day: "numeric",
@@ -149,7 +153,7 @@ export default {
         // ========================= START SERVER REQUEST ==============================
 
         // set the address for fetching the previous messages
-        const resourse = "http://localhost:3001/getMessages/" + this.SelectedChannel;
+        const resourse = config.URL.domain + config.URL.getMessages + this.SelectedChannel;
 
         axios
           // send request to the server
