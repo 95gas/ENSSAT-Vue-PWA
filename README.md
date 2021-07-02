@@ -18,4 +18,6 @@
    2. On the poped up page, click on 'Github'.
    3. After authorized github, on the same page as before, select your repository.
    4. Click on 'Deploy site' at the bottom of the page.
+   5. Click on 'Preview' at the top of the page to launch the site.
+   6. Enjoy.
    
