@@ -15,7 +15,10 @@ const toCache = [
   '/src/router/index.js',
   '/src/components/layout/Header.vue',
   '/src/components/CalendarPannel.vue',
-  '/src/components/CalendarLayout.vue'
+  '/src/components/CalendarLayout.vue',
+  '/src/components/CurrentMessages.vue',
+  '/src/components/DisplayAllMessages.vue',
+  '/src/components/otherMessages.vue'
 ];
 
 self.addEventListener('install', function(event) {

@@ -151,9 +151,11 @@ export default {
 
           //this.forceRerender();  //---> TO DO: CHECK WHY OFFLINE THIS IS NOT WORKING
 
-          // USE CASE: if the app is open for its first time offline, there will be no calendars stored in the local storage ( this.calendarFile == null )
+          // USE CASE: 
+          // 1 - if the app is open for its first time offline, there will be no calendars stored in the local storage ( -> this.calendarFile == null )
+          // 2 - if the user selects a calendar never requested before, it will be not in the local storage ( -> this.calendarFile == null )
           if (this.calendarFile == null) {
-            this.warning = "Cannot fetch calendar. Check internet connection. "
+            this.warning = "Cannot fetch calendar. Check your internet connection. "
           }
         }
       } catch (err) {

@@ -168,7 +168,7 @@ export default {
         
         // USE CASE: if app is opened offline and no previous messages are stored on local storage, oldMessages will be NULL
         if (oldMessages == null) {
-            this.warning = "Cannot fetch messages list. Check internet connection. "
+            this.warning = "Cannot fetch messages list. Check your internet connection. "
         } else {
           // convert the string in JSON
           this.messages = JSON.parse(oldMessages);
