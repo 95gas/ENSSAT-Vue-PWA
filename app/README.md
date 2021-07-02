@@ -1,24 +1,12 @@
 # app
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
+### Compiles and run on Localhost
+either:
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+or by the vue ui:
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+vue ui
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
