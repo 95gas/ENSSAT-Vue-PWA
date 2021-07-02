@@ -1,7 +1,6 @@
 <!-- **************************************************************
 ********************* HEADER LAYOUT *******************************
 *******************************************************************
-
 This page deals with displaying the HEADER on the Home page.
 -->
 
@@ -23,12 +22,19 @@ This page deals with displaying the HEADER on the Home page.
 <script>
 export default {
   name: "Header",
+
+  // ======================== DATA ================================
   data() {
     return {
       title: "SCHEDULE VIEWER",
     };
   },
+  // ========================= METHOD =============================
   methods: {
+  // ************************* setTitle ******************************
+  // It reinializes the title variable
+  // *****************************************************************
+
     setTitle(Name) {
       this.title = Name;
     },

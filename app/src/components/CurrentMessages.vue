@@ -1,3 +1,9 @@
+<!-- ****************************************************************
+********************* CURRENT MESSAGES *******************************
+*********************************************************************
+This page deals with rendering the new messages.
+-->
+
 <template>
   <div class="current-message-body">
     <div class="message-content">

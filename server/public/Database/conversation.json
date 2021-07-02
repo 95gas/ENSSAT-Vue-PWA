@@ -6,7 +6,22 @@
       "channel": "channel1",
       "date": "2 July 2021, 12:57",
       "FullDate": "2021-07-02T10:57:36.812Z"
+    },
+    {
+      "user": "Admin",
+      "content": "test2",
+      "channel": "channel1",
+      "date": "2 July 2021, 14:04",
+      "FullDate": "2021-07-02T12:04:12.086Z"
     }
   ],
-  "channel2": []
+  "channel2": [
+    {
+      "user": "Admin",
+      "content": "test Ch2",
+      "channel": "channel2",
+      "date": "2 July 2021, 14:07",
+      "FullDate": "2021-07-02T12:07:09.996Z"
+    }
+  ]
 }

@@ -1,3 +1,9 @@
+<!-- ****************************************************************
+********************* OTHER MESSAGES *******************************
+*********************************************************************
+This page deals with rendering the old messages.
+-->
+
 <template>
   <div class="other-message-body">
     <div class="message-content">

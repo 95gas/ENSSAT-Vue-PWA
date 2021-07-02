@@ -22,24 +22,22 @@ async function StartChat(io, MessageInstance) {
             const Date = data.date;
             const FullDate = data.FullDate;
 
-            // ======================= STORES MESSAGES ==============================
+            // ======================= STORE MESSAGES ==============================
 
             MessageInstance.addMsg(UserName, UserMsg, channel, Date, FullDate);
 
-            // ======================================================================
+            // =====================================================================
 
-            // broadcast the msg to all the clients connected ( to the same channel )
+            // broadcast the msg to all the clients connected
             socket.broadcast.emit("newMessage", data);
         });
 
         // reveal when a user is connected and save their name for the session
-
         socket.on('online', function (data) {
 
             socket.username = data.username;
 
             console.log("An user just got connected")
-
         });
     });
 }

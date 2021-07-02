@@ -1,7 +1,6 @@
 <!-- *****************************************************************
 ************************* MAIN APP PAGE ******************************
 **********************************************************************
-
 This page is the first to be displayed as the app is launched.
 -->
 
@@ -21,10 +20,17 @@ export default {
   components: {
     Header,
   },
+
+  // ======================== DATA ================================
   data() { return {username: "Admin"} },
+
+  // ========================= SOCKET =================================
+  // ================== Connect to the WebSocket ======================
   sockets: {
     connect() {
       console.log("socket connected");
+
+      // emit username of the user that got just connected
       this.$socket.client.emit("online", { username: this.username });
     },
   },

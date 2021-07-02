@@ -1,8 +1,7 @@
 <!-- ****************************************************************
 ********************* CALENDAR LAYOUT *******************************
 *********************************************************************
-
-This page deals with displaying the calendar on the Home page.
+This page deals with displaying the selected calendar.
 -->
 
 <template>
@@ -44,25 +43,22 @@ import ical from "node-ical";
 //import { saveAs } from 'file-saver';
 
 export default {
+  // ======================== PROPS ================================
   // fetch data from the parent component ( that is CalendarPannel.vue)
   props: ["ScheduleSelected", "calendarFile"],
 
+  // ======================== DATA ================================
   data() {
     return {
-      // settings for the v-calendar
-      masks: {
+      masks: {               // settings for the v-calendar
         weekdays: "WWW",
       },
-      // empty array to be filled in with the events of the .ics files
-      attributes: [],
+      attributes: [],       // empty array to be filled in with the events of the .ics files
     };
   },
-
+  // ========================= WATCH ==============================
   watch: {
-    // ======================================================================================
-    // when the variable 'ScheduleSelected' changes, execute the function populateCalendar()
-    // ======================================================================================
-
+  // =========== as soon as calendarFile changes, execute ===========
     calendarFile: function () {
       
       // delete previous calendar stored
@@ -71,17 +67,19 @@ export default {
       this.populateCalendar();
     },
   },
+  // ========================= METHOD =============================
   methods: {
+    // ************************* emptyCalendar ******************************
+    // It reinializes the attributes[] for storing the new events
+    // **********************************************************************
 
     emptyCalendar(){
       this.attributes = [];
     },
 
-    /* *************************************************************************
-    *************************** FILL IN CALENDAR *******************************
-    ****************************************************************************
-
-    The function deals with fetching the events from the ics file and insert them into the calendar layout.*/
+    /*************************** populateCalendar *******************************
+    The function deals with fetching the events from the ics file and insert them into the calendar layout.
+    ****************************************************************************/
 
     populateCalendar() {
 

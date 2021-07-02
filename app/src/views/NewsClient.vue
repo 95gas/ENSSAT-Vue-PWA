@@ -1,5 +1,14 @@
+<!-- ********************************************************************
+********************* CHAT USER INTERFACE *******************************
+*************************************************************************
+This page deals with displaying the chat for the a normal user.
+-->
+
 <template>
   <div class="chatroom">
+    <div class = "warning">
+      <h4>{{warning}}</h4>
+    </div>
     <div class="channels">
       <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1'), resetCurrentMsgList()" >
         <h2>Channel #1</h2>
@@ -45,6 +54,7 @@ export default {
       myMessage: "",                  // stores the messages written in the input field
       username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
       isConnected: true,              // keeps track if a internet connection exists
+      warning:""                      // Variable to prin a warning on the interface
     }
   },
   // ========================= WATCH ==============================
@@ -142,9 +152,8 @@ export default {
             // handle error
             console.log(error);
           });
-
+        // ========================= END SERVER REQUEST ==============================
       } 
-      // ========================= END SERVER REQUEST ==============================
       
       else {   // if we are offline
 
@@ -155,10 +164,9 @@ export default {
 
         console.log("messages retrieve from localStorage");
         
-        // if app is opened offline and no previous messages are stored on local storage, oldMessages will be NULL
+        // USE CASE: if app is opened offline and no previous messages are stored on local storage, oldMessages will be NULL
         if (oldMessages == null) {
-          console.log("Check internet connection");
-          // TO DO : 'you are offline'
+            this.warning = "Cannot fetch messages list. Check internet connection. "
         } else {
           // convert the string in JSON
           this.messages = JSON.parse(oldMessages);
@@ -170,6 +178,9 @@ export default {
 </script>
 
 <style scoped>
+.warning {
+    color: rgba(207, 41, 41, 0.986);
+}
 .color {
   background-color: rgba(0, 0, 0, 0.062);
 }

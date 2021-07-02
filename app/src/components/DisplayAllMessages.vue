@@ -1,5 +1,13 @@
+<!-- ****************************************************************
+********************* DISPLAY ALL MESSAGES *******************************
+*********************************************************************
+This page deals with displaying ALL the messages ( old and new ).
+-->
+
 <template>
   <div ref="containerMessageDisplay" class="container-message-display">
+    
+    <!-- DISPLAY THE OLD MESSAGES -->
     <div
       v-for="(message, index) in messages"
       :key="index"
@@ -7,6 +15,8 @@
     >
       <OtherMessage v-bind:messages="message" />
     </div>
+
+    <!-- DISPLAY THE CURRENT MESSAGES SENT -->
     <div
       v-for="(message, index) in CurrentMsg"
       :key="index"

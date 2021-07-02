@@ -1,12 +1,14 @@
 <!-- ****************************************************************
 ********************* CALENDAR PANNEL *******************************
 *********************************************************************
-
-This page deals with displaying the calendar pannel by which the client select which calendar needs displaying.
+This page deals with displaying the calendar pannel by which the client can select which calendar needs displaying.
 -->
 
 <template>
   <div>
+    <div class = "warning">
+      <h4>{{warning}}</h4>
+    </div>
     <div class="schedule">
       <fieldset>
         <p>
@@ -69,28 +71,22 @@ export default {
   components: {
     CalendarLayout,
   },
+  // ======================== DATA ================================
   data() {
     return {
-      // keep track of the INDEX in the database of the selected faculty
-      SelectedFaculty: -1,
-      // keep track of the INDEX in the database of the selected group for the selected faculty
-      SelectedGroup: "",
-      // keep track of the NAME of the group selected
-      ScheduleSelected: "",
-      // pass database
-      listFaculties: Db,
-      // for storing the file fetched from the server
-      calendarFile: "",
-      // key for the component 'CalendarLayout'
-      componentKey: 0,
+      SelectedFaculty: -1,    // keep track of the INDEX in the database of the selected faculty
+      SelectedGroup: "",      // keep track of the INDEX in the database of the selected group for the selected faculty
+      ScheduleSelected: "",   // keep track of the NAME of the group selected
+      listFaculties: Db,      // pass database
+      calendarFile: "",       // for storing the file fetched from the server
+      componentKey: 0,        // key for the component 'CalendarLayout'
+      warning:""              // Variable to prin a warning on the interface
     };
   },
-
+  // ========================= METHOD =============================
   methods: {
-    /* ***********************************************************************
-    *************************** RELOAD COMPONENT *****************************
+    /*************************** RELOAD COMPONENT *****************************
     **************************************************************************
-
     The function deals with changing the 'key' of the component 'CalendarLayour'.
     This causes a reload of the component that in turns delete the previous events in the 'CalendarLayout'.*/
 
@@ -98,10 +94,8 @@ export default {
       this.componentKey += 1;
     },
 
-    /* ***********************************************************************
-    *************************** FETCH CALENDAR *******************************
+    /*************************** FETCH CALENDAR *******************************
     **************************************************************************
-
     The function deals with fetching the calendar from server.*/
 
     fetchCalendar: function () {
@@ -112,14 +106,12 @@ export default {
         // set the name of the group selected
         this.ScheduleSelected = this.listFaculties.Faculty[this.SelectedFaculty].Groups[this.SelectedGroup].Name;
 
+        // if we are connected to internet
         if (isOnline) {
-          // if we are connected to internet
+          
+          // ========================= START SERVER REQUEST ==============================
 
-          this.forceRerender();
-
-          // retrieve it from server and update the one that was stored
           // set the address for fetching the calendar
-
           const resourse = config.URL.domain + config.URL.getCalendar + this.SelectedFaculty + "/" + this.SelectedGroup;
 
           axios
@@ -127,9 +119,11 @@ export default {
             .get(resourse)
 
             .then((response) => {
+
               // fetch the ics file sent back by the server
               this.calendarFile = response.data;
 
+              // store the ics file in the local storage
               localStorage.setItem(this.ScheduleSelected, this.calendarFile);
 
               console.log("calendar retrieve from server");
@@ -138,20 +132,26 @@ export default {
               // handle error
               console.log(error);
             });
-        } else {
-          // if we are offline
 
-          // use the one stored in localStorage
+          // reload the CalendarLayout to remove the previous events
+          this.forceRerender();
 
-          //this.forceRerender();  //---> TO DO: CHECK WHY OFFLINE THIS IS NOT WORKING. IT prevents CalendarLayout from reading the calendar change
-
+          // ========================= END SERVER REQUEST ==============================
+        } 
+        
+        // if we are offline
+        else {
+          
+          // retrieve calendar from local storage
           this.calendarFile = localStorage.getItem(this.ScheduleSelected);
 
           console.log("calendar retrieve from localStorage");
 
+          //this.forceRerender();  //---> TO DO: CHECK WHY OFFLINE THIS IS NOT WORKING
+
+          // USE CASE: if the app is open for its first time offline, there will be no calendars stored in the local storage ( this.calendarFile == null )
           if (this.calendarFile == null) {
-            console.log("Check internet connection");
-            // TO DO : add 'you are offline '
+            this.warning = "Cannot fetch calendar. Check internet connection. "
           }
         }
       } catch (err) {
@@ -164,6 +164,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.warning {
+    padding-bottom: 30px;
+    color: rgba(207, 41, 41, 0.986);
+}
 .schedule {
   background-color: #fff;
   -webkit-background-clip: padding-box;

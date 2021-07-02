@@ -123,13 +123,16 @@ const conversation = require('./public/lib/LowDbUtilities.js');
  let fileName ='conversation.json';
  let path = 'public/Database/' + fileName;
 
+ // initalize the instance for creating the database
+ var MessageInstance;
+
  conversation.createDB(path).then(message => {
 
     // create the instance for the database created
-     const MessageInstance = message;
+    MessageInstance = message;
 
-     // START WEBSOCKET
-     SendReceiveMessages.StartChat(io, MessageInstance);
+    // START WEBSOCKET
+    SendReceiveMessages.StartChat(io, MessageInstance);
 
  })
 // ====================== END SOCKET.io ======================

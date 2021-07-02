@@ -1,5 +1,11 @@
+/* ********************************************************************
+*************************** MESSAGE CLASS *****************************
+***********************************************************************
+Class describing the MESSAGE object.
+*/
+
 class Message{
-    constructor(data){   //id,title,comment,tags
+    constructor(data){
 
       if(undefined != data.user) {
         this.user = data.user;

@@ -2,6 +2,7 @@
 
 module.exports = {
   devServer: {
+  // set the port
     port: 3000
   },
   runtimeCompiler: true,
