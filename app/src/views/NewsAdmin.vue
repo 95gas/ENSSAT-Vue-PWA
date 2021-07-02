@@ -27,6 +27,7 @@
 </template>
 
 <script>
+// import the component DisplayAllMessages.vue
 import DisplayAllMessages from "../components/DisplayAllMessages.vue";
 
 // import axios for the communication with the server
@@ -34,30 +35,38 @@ import axios from "axios";
 
 export default {
   components: {
-    DisplayAllMessages,
+    DisplayAllMessages
   },
-  mounted() {
-    this.getMessagesList("channel1");
-    this.changeColor('btn1');
+  // ======================= MOUNTED ==============================
+  // ===== as the page is rendered execute these functions ========
+  mounted() { 
+    this.getMessagesList("channel1")
+    this.changeColor('btn1')
   },
+  // ======================== DATA ================================
   data() {
     return {
-      CurrentMsg: [],
-      clicked: '',
-      messages: [],
-      SelectedChannel: "channel1",
-      myMessage: "",
-      username: "Admin",
-      isConnected: true,
-    };
+      CurrentMsg: [],                 // stores the new message(s) the admin will write
+      clicked: '',                    // keep track which button has been clicked on
+      messages: [],                   // stores the previous messages written by all the admins in a specific channel
+      SelectedChannel: "channel1",    // keeps track of the selected channel
+      myMessage: "",                  // stores the messages written in the input field
+      username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
+      isConnected: true,              // keeps track if a internet connection exists
+    }
   },
+  // ========================= WATCH ==============================
+  // =========== as soon as isConnected changes execute ===========
   watch: {
     isConnected: function () {
       if (!this.isConnected) {
         console.log("Connection lost..");
+        // TO DO : 'YOU ARE OFFLINE '
       }
     }
   },
+  // ========================= SOCKET =============================
+  // ================== WebSocket management ======================
   sockets: {
     // Fired when the server sends something on the "messageChannel" channel.
     newMessage(data) {
@@ -66,13 +75,25 @@ export default {
       }
     },
   },
+  // ========================= METHOD =============================
   methods: {
+    // ************************* ResetCurretMsgList ******************************
+    // It reinializes the CurrentMsg[] for storing the new current messages
+    // *************************************************************************
     resetCurrentMsgList(){
       this.CurrentMsg = []
     },
+
+    // ************************* ChangeColor ******************************
+    // Changes the background color of the btn as they are clicked
+    // ********************************************************************
     changeColor(btn){
       this.clicked = btn;
     },
+
+    // ***************************** sendMsg ******************************
+    // Stores the current msg in CurrentMsg and emits it on the websocket
+    // ********************************************************************
     sendMsg() {
       if (this.isConnected) {
         const now = new Date();
@@ -99,36 +120,49 @@ export default {
         this.$socket.client.emit("newMessage", data);
       }
     },
+    
+    // ***************************** setChannel ******************************
+    // Stores the selected channel on SelectedChannel
+    // ***********************************************************************
     setChannel(channel) {
       this.SelectedChannel = channel;
     },
+
+    // ********************************* getMessagesList **********************************
+    // Retrieve from the server the list of the last 100 messages to show on the interface
+    // ************************************************************************************
     getMessagesList(channel) {
+
+      // Set the Selected channel
       this.setChannel(channel);
 
       // variable to check if a connection to internet exists
       const isOnline = navigator.onLine;
 
+      // temp variable to store the last msgs
       var oldMessages;
 
-      if (isOnline) {
-        // if we are connected to internet
+      if (isOnline) {    // if we are connected to internet
+
         this.isConnected = true;
 
-        // retrieve it from server and update the one that was stored
+        // ========================= START SERVER REQUEST ==============================
+
         // set the address for fetching the previous messages
-        const resourse =
-          "http://localhost:3001/getMessages/" + this.SelectedChannel;
+        const resourse = "http://localhost:3001/getMessages/" + this.SelectedChannel;
 
         axios
           // send request to the server
           .get(resourse)
 
           .then((response) => {
+
             // fetch the JSON data sent back by the server
             oldMessages = response.data;
 
             this.messages = oldMessages;
 
+            // stores it on the local storage
             localStorage.setItem(
               this.SelectedChannel,
               JSON.stringify(oldMessages)
@@ -140,16 +174,23 @@ export default {
             // handle error
             console.log(error);
           });
-      } else {
-        // if we are offline
-        this.isConnected = false;
 
+      } 
+      // ========================= END SERVER REQUEST ==============================
+      
+      else {   // if we are offline
+
+        this.isConnected = false;
+        
+        // get last messages from the local storage
         oldMessages = localStorage.getItem(this.SelectedChannel);
 
         console.log("messages retrieve from localStorage");
-
+        
+        // if app is opened offline and no previous messages are stored on local storage, oldMessages will be NULL
         if (oldMessages == null) {
           console.log("Check internet connection");
+          // TO DO : 'you are offline'
         } else {
           // convert the string in JSON
           this.messages = JSON.parse(oldMessages);

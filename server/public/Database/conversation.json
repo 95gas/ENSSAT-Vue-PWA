@@ -15,6 +15,30 @@
       "channel": "channel1",
       "date": "1 July 2021, 19:05",
       "FullDate": "2021-07-01T19:05:34.627Z"
+    },
+    {
+      "id": 1,
+      "user": "Admin",
+      "content": "test4",
+      "channel": "channel1",
+      "date": "2 July 2021, 06:51",
+      "FullDate": "2021-07-02T06:51:39.454Z"
+    },
+    {
+      "id": 2,
+      "user": "Admin",
+      "content": "TEST",
+      "channel": "channel1",
+      "date": "2 July 2021, 07:38",
+      "FullDate": "2021-07-02T07:38:55.045Z"
+    },
+    {
+      "id": 3,
+      "user": "Admin",
+      "content": "TEST2",
+      "channel": "channel1",
+      "date": "2 July 2021, 07:39",
+      "FullDate": "2021-07-02T07:39:33.763Z"
     }
   ],
   "channel2": [
@@ -25,6 +49,22 @@
       "channel": "channel2",
       "date": "1 July 2021, 19:05",
       "FullDate": "2021-07-01T19:05:12.896Z"
+    },
+    {
+      "id": 1,
+      "user": "Admin",
+      "content": "TEST1",
+      "channel": "channel2",
+      "date": "2 July 2021, 07:39",
+      "FullDate": "2021-07-02T07:39:15.644Z"
+    },
+    {
+      "id": 2,
+      "user": "Admin",
+      "content": "TEST3",
+      "channel": "channel2",
+      "date": "2 July 2021, 07:39",
+      "FullDate": "2021-07-02T07:39:44.999Z"
     }
   ]
 }

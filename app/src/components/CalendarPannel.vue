@@ -154,6 +154,7 @@ export default {
 
           if (this.calendarFile == null) {
             console.log("Check internet connection");
+            // TO DO : add 'you are offline '
           }
         }
       } catch (err) {

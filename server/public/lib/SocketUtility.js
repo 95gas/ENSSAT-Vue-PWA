@@ -1,8 +1,6 @@
-
-
-//**************************************************/
-//***************** SOCKET.io  *********************/ 
-//**************************************************/
+//****************************************************************/
+//***************** WEBSOCKET implementation *********************/ 
+//****************************************************************/
 
 // Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
@@ -10,11 +8,10 @@ async function StartChat(io, MessageInstance) {
 
     console.log(" --> Socket launched ... ")
 
-   
 
     io.on('connection', (socket) => {
 
-        // when the admin emits 'new message', this listens and executes
+        // when the admin emits 'newMessage', this listens and executes
 
         socket.on('newMessage',(data) => {
 
@@ -35,7 +32,7 @@ async function StartChat(io, MessageInstance) {
             socket.broadcast.emit("newMessage", data);
         });
 
-        // send store messages when user is online ( or save it into a file on client side and load it as app is launched )
+        // reveal when a user is connected and save their name for the session
 
         socket.on('online', function (data) {
 

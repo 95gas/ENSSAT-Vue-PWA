@@ -9,6 +9,12 @@ const express = require('express')
 const app = express()
 const port = 3001
 
+// import cors
+const cors = require("cors");
+
+// use cors
+app.use(cors());
+
 app.use(express.static("../app/public"));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -31,8 +37,8 @@ var calendarTools = require('./public/lib/UtilityCalendar.js');
 const checkInternetConnected = require('check-internet-connected');
 
 const configs = {
-    timeout: 5000, //timeout connecting to each try (default 5000)
-    retries: 2,//number of retries to do before failing (default 5)
+    timeout: 5000,      //timeout connecting to each try (default 5000)
+    retries: 2,         //number of retries to do before failing (default 5)
     domain: 'google.com'//the domain to check DNS record of
 }
 
@@ -117,16 +123,6 @@ const conversation = require('./public/lib/LowDbUtilities.js');
      SendReceiveMessages.StartChat(io, MessageInstance);
 
  })
-
-
-
-// import cors
-const cors = require("cors");
-
-// use cors
-app.use(cors());
-
-
 
 //************************************************************/
 //********************** GET MESSAGES ***********************/
