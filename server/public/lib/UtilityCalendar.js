@@ -1,29 +1,27 @@
 //*********************************************************/
 //***************** CALENDAR UTILITY *********************/ 
 //********************************************************/
+// tools for managing the ics files.
 
-// tools for managing the calendar
 
 // import ical
 const ical = require('node-ical');
 const icalGenerator = require('ical-generator');
 
-//****************************************************************/
-//***************** Fetch calendar function **********************/
-//****************************************************************/
 
-// download from URL or update the previous calendar previously downloaded
+//************************* Fetch calendar function ***********************/
+// download from URL and update the calendar that was previously downloaded
 
 async function updateCalendar( URL, path, fileName ) {
 
-    // check path. If folder doesn't exist, create it'
     var fs = require('fs');
 
+    // check path. If folder doesn't exist, create it'
     if (!fs.existsSync(path)){
         fs.mkdirSync(path);
     }
 
-    // retrieve Icalendar
+    // download from URL and save the calendar files
     ical.fromURL(URL, {}, function (err, data) {
         if (err) {
             console.error(err);
@@ -31,9 +29,10 @@ async function updateCalendar( URL, path, fileName ) {
         }
         else {
 
-            // store calendar
+            // create the calendar instance
             const calendar = icalGenerator();
 
+            // populate the calendar with the event fetched from the URL
             for (let k in data) {
                 if (data.hasOwnProperty(k)) {
                     var ev = data[k];
@@ -49,7 +48,10 @@ async function updateCalendar( URL, path, fileName ) {
                 }
             }
 
+            // Store the calendar
             calendar.save(path + fileName + '.ics');   // if the file already exists, the function .save overwrites it.
+
+            // print logs
             console.log('schedule for ' + fileName + '.ics updated and stored in ' + path);
         }
     });

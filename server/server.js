@@ -1,9 +1,8 @@
-console.log("Server inialization... ");
-
-
 //*************************************************************/
 //******************* INITIALIZE SERVER **********************/ 
 //************************************************************/
+
+console.log("Server inialization... ");
 
 const express = require('express')
 const app = express()
@@ -24,9 +23,9 @@ const server = app.listen(port, () => {
 })
 
 
-//**************************************************************************/
-//***************** Retrieve and Update Calendars DAILY ********************/
-//**************************************************************************/
+//******************************************************************************/
+//***************** Retrieve and Update the Calendars DAILY ********************/
+//******************************************************************************/
 // In this section we download and update the calendars if we are connected to internet
 
 // Import tools for stores the calendars
@@ -101,13 +100,13 @@ cron.schedule('0 1 * * *', () => {
 //**************************************************/
 //***************** SOCKET.io  *********************/ 
 //**************************************************/
-// Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
+// Management of the messages sent by the admin on the channel with the broadcast of them to all the connected user ( students and admins )
 
 var SendReceiveMessages = require('./public/lib/SocketUtility.js');
 
 const io = require('socket.io')(server,
 
-    // option to allow request from other server to communicate with this server
+    // option to allow requests from foreign server to this server
     {
         cors: {
             origin: true,
@@ -191,8 +190,8 @@ app.get('/schedule/:faculty/:group', (req, res) => {
 // ================== END GET CALENDAR =====================
 
 
-//********************** visual feeedback server is running ************************/
+//********************** visual feeedback for check whether the server is running ************************/
 app.get('/', (req, res) => {
     res.send("Server launched .. ");
 })
-//******************* END visual feeedback server is running ***********************/
+//******************* END visual feeedback for check whether the server is running ***********************/
