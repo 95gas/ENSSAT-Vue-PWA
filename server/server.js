@@ -15,9 +15,12 @@ app.use(express.static("../app/public"));
 app.use(express.json())                         // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+// import config file
+const config = require("./config.json")
+
 // start server 
 const server = app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`)
+    console.log("Server listening at" + config.URL + port)
 })
 
 
