@@ -32,6 +32,7 @@ var calendarTools = require('./public/lib/UtilityCalendar.js');
 // import package for checking if an internet connection exists
 const checkInternetConnected = require('check-internet-connected');
 
+// set options for the connection check
 const configs = {
     timeout: 5000,      //timeout connecting to each try (default 5000)
     retries: 2,         //number of retries to do before failing (default 5)
@@ -44,6 +45,13 @@ const configs = {
 
 var cron = require('node-cron');
 
+// # ┌──────────── minute
+// # │ ┌────────── hour
+// # │ │ ┌──────── day of month
+// # │ │ │ ┌────── month
+// # │ │ │ │ ┌──── day of week
+// # │ │ │ │ │
+// # * * * * *
 cron.schedule('0 1 * * *', () => {
 
     checkInternetConnected(configs)
@@ -83,13 +91,13 @@ cron.schedule('0 1 * * *', () => {
     scheduled: true,
     timezone: "Europe/Rome"
 });
+// ========================== END SCHEDULED TASK ============================
 
 
 
 //**************************************************/
 //***************** SOCKET.io  *********************/ 
 //**************************************************/
-
 // Management of the messages sent by the admin on the channel with broadcast of them to all the connected user ( students and admins )
 
 var SendReceiveMessages = require('./public/lib/SocketUtility.js');
@@ -105,39 +113,46 @@ const io = require('socket.io')(server,
     }
 );
 
+// import database utility
 const conversation = require('./public/lib/LowDbUtilities.js');
 
  // create database for storing the messages
  let fileName ='conversation.json';
  let path = 'public/Database/' + fileName;
 
- var MessageInstance;
-
  conversation.createDB(path).then(message => {
-     MessageInstance = message;
 
+    // create the instance for the database created
+     const MessageInstance = message;
+
+     // START WEBSOCKET
      SendReceiveMessages.StartChat(io, MessageInstance);
 
  })
+// ====================== END SOCKET.io ======================
+
 
 //************************************************************/
 //********************** GET MESSAGES ***********************/
-//***********************************************************/ 
+//***********************************************************/
 app.get('/getMessages/:channel', (req, res) => {
 
+    // retrieve url parameter
     const channel = req.params['channel'];
 
+    // fetch messages from the database
     const JSONdata = MessageInstance.getMsgs(channel);
 
+    // send data back to client
     res.json(JSONdata);
 })
+// ================== END GET MESSAGES ======================
 
 
 
 //************************************************************/
 //********************** GET CALENDAR ***********************/
 //***********************************************************/
-
 app.get('/schedule/:faculty/:group', (req, res) => {
 
     // retrieve url parameters
@@ -167,3 +182,11 @@ app.get('/schedule/:faculty/:group', (req, res) => {
         }
     });
 })
+// ================== END GET CALENDAR =====================
+
+
+//********************** visual feeedback server is running ************************/
+app.get('/', (req, res) => {
+    res.send("Server launched .. ");
+})
+//******************* END visual feeedback server is running ***********************/
