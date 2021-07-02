@@ -6,8 +6,10 @@ This page deals with displaying the calendar pannel by which the client can sele
 
 <template>
   <div>
-    <div class = "warning">
+    <div v-if="warning != ''">
+      <div class="warning">
       <h4>{{warning}}</h4>
+      </div>
     </div>
     <div class="schedule">
       <fieldset>

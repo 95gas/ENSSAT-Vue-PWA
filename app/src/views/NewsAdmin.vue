@@ -6,8 +6,10 @@ This page deals with displaying the chat for the an admin user.
 
 <template>
   <div class="chatroom">
-    <div class = "warning">
+    <div v-if="warning != ''">
+      <div class="warning">
       <h4>{{warning}}</h4>
+      </div>
     </div>
     <div class="channels">
       <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1'), resetCurrentMsgList()">
@@ -65,7 +67,7 @@ export default {
       myMessage: "",                  // stores the messages written in the input field
       username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
       isConnected: true,              // keeps track if a internet connection exists
-      warning:""                      // Variable to prin a warning on the interface
+      warning:''                      // Variable to prin a warning on the interface
    }
   },
   // ========================= WATCH ==============================
@@ -108,6 +110,7 @@ export default {
     // Stores the current msg in CurrentMsg and emits it on the websocket
     // ********************************************************************
     sendMsg() {
+      
       if (this.isConnected) {
         const now = new Date();
 

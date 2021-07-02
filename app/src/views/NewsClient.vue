@@ -6,8 +6,10 @@ This page deals with displaying the chat for the a normal user.
 
 <template>
   <div class="chatroom">
-    <div class = "warning">
+    <div v-if="warning != ''">
+      <div class="warning">
       <h4>{{warning}}</h4>
+      </div>
     </div>
     <div class="channels">
       <button v-bind:class="{ color : clicked == 'btn1'}" id="channel" @click="getMessagesList('channel1'), changeColor('btn1'), resetCurrentMsgList()" >
