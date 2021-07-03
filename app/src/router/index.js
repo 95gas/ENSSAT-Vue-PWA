@@ -16,12 +16,12 @@ const routes = [
   {
     path: '/News/user',
     name: 'NewsClient',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NewsClient.vue')
+    component: () => import(/* webpackChunkName: "NewsClient" */ '../views/NewsClient.vue')
   },
   {
     path: '/News/admin',
     name: 'NewsAdmin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NewsAdmin.vue')
+    component: () => import(/* webpackChunkName: "NewsAdmin" */ '../views/NewsAdmin.vue')
   }
 ]
 

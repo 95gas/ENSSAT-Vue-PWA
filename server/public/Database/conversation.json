@@ -22,6 +22,13 @@
       "channel": "channel2",
       "date": "2 July 2021, 14:07",
       "FullDate": "2021-07-02T12:07:09.996Z"
+    },
+    {
+      "user": "Admin",
+      "content": "test3",
+      "channel": "channel2",
+      "date": "3 July 2021, 01:18",
+      "FullDate": "2021-07-02T23:18:52.929Z"
     }
   ]
 }
