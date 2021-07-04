@@ -5,7 +5,7 @@ either:
 ```
 npm run serve
 ```
-or by the vue interface:
+or by the vue graphic interface:
 ```
 vue ui
 ```
