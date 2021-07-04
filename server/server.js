@@ -6,7 +6,7 @@ console.log("Server inialization... ");
 
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3001           // when the site will be host in a web hosting service, the number of the port will be set on the env variable PORT
 const cors = require("cors");                   // import cors
 
 app.use(cors());                                // for cors requests
