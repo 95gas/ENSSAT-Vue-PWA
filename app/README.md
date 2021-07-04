@@ -9,3 +9,9 @@ or by the vue graphic interface:
 ```
 vue ui
 ```
+### Run
+
+Connect to:
+```
+http://localhost:3000/
+```
