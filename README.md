@@ -23,7 +23,7 @@ Before starting, create two new repositories on your github account: one for the
 
 ## Deployment of the server on Heroku.com
    1. Create a new project. 
-      ( The name of the project will be used as part of the URL of your server: "https://Name of your project.herokuapp.com/")
+      ( The name of the project will be used as part of the URL of your server: "https://<Name of your project>.herokuapp.com/")
    2. Go on the section 'Deploy'. 
       a. Select 'Github' on the Deployment method section
       b. On the section 'App connected to Github' connect the repository containing the files for the server.
