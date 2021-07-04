@@ -33,6 +33,7 @@ FRONTEND:
 BACKEND:
 * Node.JS v14.16.0
 * [LowDB](https://github.com/typicode/lowdb) database - For storing the messages.
+* [socket-io](https://www.npmjs.com/package/socket.io) - For reading the messages sent on the chat.
 * [Node-ical](https://www.npmjs.com/package/node-ical) - For reading the ics file from URL.
 * [ical-generator](https://www.npmjs.com/package/ical-generator) - For generate the ics file from URL.
 
