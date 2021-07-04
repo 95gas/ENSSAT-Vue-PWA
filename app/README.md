@@ -9,7 +9,7 @@ or by the vue graphic interface:
 ```
 vue ui
 ```
-### Run
+### Visualize the app
 
 Connect to:
 ```
