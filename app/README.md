@@ -1,6 +1,6 @@
 # app
 
-### Compiles and run on Localhost
+### Compile and run on Localhost
 either:
 ```
 npm run serve
