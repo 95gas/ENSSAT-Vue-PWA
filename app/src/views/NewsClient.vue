@@ -57,7 +57,7 @@ export default {
       SelectedChannel: "channel1",    // keeps track of the selected channel
       myMessage: "",                  // stores the messages written in the input field
       username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
-      isConnected:'',                 // keeps track if a internet connection exists
+      isConnected:navigator.onLine,   // keeps track if a internet connection exists
       warning:""                      // Variable to prin a warning on the interface
     }
   },

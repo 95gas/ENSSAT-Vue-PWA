@@ -81,14 +81,14 @@ export default {
   // ======================== DATA ================================
   data() {
     return {
-      SelectedFaculty: -1,    // keep track of the INDEX in the database of the selected faculty
-      SelectedGroup: "",      // keep track of the INDEX in the database of the selected group for the selected faculty
-      ScheduleSelected: "",   // keep track of the NAME of the group selected
-      listFaculties: Db,      // pass the database
-      calendarFile: "",       // for storing the file fetched from the server
-      componentKey: 0,        // key for the component 'CalendarLayout'
-      warning:"",             // Variable to prin a warning on the interface
-      isConnected:''          // keeps track if a internet connection exists
+      SelectedFaculty: -1,              // keep track of the INDEX in the database of the selected faculty
+      SelectedGroup: "",                // keep track of the INDEX in the database of the selected group for the selected faculty
+      ScheduleSelected: "",             // keep track of the NAME of the group selected
+      listFaculties: Db,                // pass the database
+      calendarFile: "",                 // for storing the file fetched from the server
+      componentKey: 0,                  // key for the component 'CalendarLayout'
+      warning:"",                       // Variable to prin a warning on the interface
+      isConnected:navigator.onLine,    // keeps track if a internet connection exists
     };
   },
   // ========================= METHOD =============================

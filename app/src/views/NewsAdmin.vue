@@ -54,10 +54,11 @@ export default {
   // ======================= MOUNTED ==============================
   // ===== as the page is rendered execute these functions ========
   mounted() { 
-    this.isOfflineAsync()
-    this.isOnlineAsync()
-    this.getMessagesList("channel1")
-    this.changeColor('btn1')
+    this.isOffline()                    // set the warning on the interface if the app is offline
+    this.isOfflineAsync()               // set the warning for offline use if the connection is lost
+    this.isOnlineAsync()                // set the warning for online use if the connection is back
+    this.getMessagesList("channel1")    // load messages for 'channel1' as the page is opened
+    this.changeColor('btn1')            // highlight 'channel1' button
   },
   // ======================== DATA ================================
   data() {
@@ -68,7 +69,7 @@ export default {
       SelectedChannel: "channel1",    // keeps track of the selected channel
       myMessage: "",                  // stores the messages written in the input field
       username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
-      isConnected: '',                // keeps track if a internet connection exists
+      isConnected:navigator.onLine,   // keeps track if a internet connection exists. It is initalize to false/true as the app is opened.
       warning:''                      // Variable to prin a warning on the interface
    }
   },
@@ -87,7 +88,7 @@ export default {
     // ***************************** isOfflineAsync ********************************
     // Async function listener to the 'offline' event of the system. 
     // As the connection is lost it sets the warning to be printed on the interface
-    // and lets the app know it is offline
+    // and lets the app know that it is offline
     // *****************************************************************************
     isOfflineAsync: function() {
         window.addEventListener('offline', ()=> {
@@ -96,9 +97,19 @@ export default {
         this.warning = "Connection lost. Cannot send/receive messages."
       })
     },
+
+    // ***************************** isOffline ********************************
+    // Sync function for setting the warning if the system is launched offline.
+    // When the app is opened offline, this function sets soon the warning
+    // *****************************************************************************
+    isOffline: function() {
+      if (!this.isConnected){
+        this.warning = "Connection lost. Cannot send/receive messages."
+      }
+    },
     // ************************************ isOnlineAsync *************************************
     // Async function listener to the 'online' event of the system. 
-    // As the connection is lost it 'removes' the warning and lets the app know it is online
+    // As the connection is established again, it 'removes' the warning and lets the app know that it is online
     // ****************************************************************************************
     isOnlineAsync: function() {
         window.addEventListener('online', ()=> {
