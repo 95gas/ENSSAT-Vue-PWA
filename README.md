@@ -69,4 +69,12 @@ Before starting, create two new repositories on your github account: one for the
    4. Click on 'Deploy site' at the bottom of the page.
    5. Click on 'Preview' at the top of the page to launch the site.
    6. Enjoy.
+
+---
+
+## Bugs known
+
+In the OFFLINE USE v-calendar is not working properly. In particular:
+1. The calendar is not going to be redirected to the view with the current month. 
+2. The component built with v-calendar ( that is the component 'CalendarLayout.vue' ) is not going to be rerendered by updating its key. This causes the overlapping of the events of the new calendar with the ones of the previous calendar, but ONLY on the current month view. Indeed, by moving to a different month, the component is going to be updated 'manually' and there is no longer the overlapping of the new and old events. 
    
