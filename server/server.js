@@ -47,13 +47,13 @@ const configs = {
 
 var cron = require('node-cron');
 
-// # ┌──────────── minute
-// # │ ┌────────── hour
-// # │ │ ┌──────── day of month
-// # │ │ │ ┌────── month
-// # │ │ │ │ ┌──── day of week
-// # │ │ │ │ │
-// # * * * * *
+//           # ┌──────────── minute
+//           # │ ┌────────── hour
+//           # │ │ ┌──────── day of month
+//           # │ │ │ ┌────── month
+//           # │ │ │ │ ┌──── day of week
+//           # │ │ │ │ │
+//           # * * * * *
 cron.schedule('0 1 * * *', () => {
 
     checkInternetConnected(configs)
