@@ -27,10 +27,6 @@ module.exports = {
       msTileImage: 'img/icons/msapplication-icon-144x144.png'
     },
     // configure the workbox plugin
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      // swSrc is required in InjectManifest mode.
-      swSrc: 'public/ServiceWorker.js'
-    }
+    workboxPluginMode: 'GenerateSW'
   }
 }

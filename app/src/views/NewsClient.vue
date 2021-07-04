@@ -43,6 +43,8 @@ export default {
   // ======================= MOUNTED ==============================
   // ===== as the page is rendered execute these functions ========
   mounted() { 
+    this.isOfflineAsync()
+    this.isOnlineAsync()
     this.getMessagesList("channel1")
     this.changeColor('btn1')
   },
@@ -55,20 +57,11 @@ export default {
       SelectedChannel: "channel1",    // keeps track of the selected channel
       myMessage: "",                  // stores the messages written in the input field
       username: "Admin",              // stores the username of the Admin connected to the webSocket ( connection is done in the App.vue, hence as the app is launched )
-      isConnected: true,              // keeps track if a internet connection exists
+      isConnected:'',                 // keeps track if a internet connection exists
       warning:""                      // Variable to prin a warning on the interface
     }
   },
-  // ========================= WATCH ==============================
-  // =========== as soon as isConnected changes execute ===========
-  watch: {
-    isConnected: function () {
-      if (!this.isConnected) {
-        console.log("Connection lost..");
-        // TO DO : 'YOU ARE OFFLINE '
-      }
-    }
-  },
+
   // ========================= SOCKET =============================
   // ================== WebSocket management ======================
   sockets: {
@@ -80,13 +73,34 @@ export default {
     newMessage(data) {
       if (this.SelectedChannel == data.channel) {
         this.CurrentMsg.push(data);
-        console.log("Message received")
       }
     },
   },
   // ========================= METHOD =============================
   methods: {
-
+    // ***************************** isOfflineAsync ********************************
+    // Async function listener to the 'offline' event of the system. 
+    // As the connection is lost it sets the warning to be printed on the interface
+    // and lets the app know it is offline
+    // *****************************************************************************
+    isOfflineAsync: function() {
+        window.addEventListener('offline', ()=> {
+        console.log("You lost connection.")
+        this.isConnected = false
+        this.warning = "Connection lost. Cannot send/receive messages."
+      })
+    },
+    // ************************************ isOnlineAsync *************************************
+    // Async function listener to the 'online' event of the system. 
+    // As the connection is lost it 'removes' the warning and lets the app know it is online
+    // ****************************************************************************************
+    isOnlineAsync: function() {
+        window.addEventListener('online', ()=> {
+        console.log("You are now back online.");
+        this.isConnected = true
+        this.warning = ""
+      })
+    },
     // ************************* ChangeColor ******************************
     // Changes the background color of the btn as they are clicked
     // ********************************************************************
@@ -116,15 +130,10 @@ export default {
       // Set the Selected channel
       this.setChannel(channel);
 
-      // variable to check if a connection to internet exists
-      const isOnline = navigator.onLine;
-
       // temp variable to store the last msgs
       var oldMessages;
 
-      if (isOnline) {    // if we are connected to internet
-
-        this.isConnected = true;
+      if (this.isConnected) {    // if we are connected to internet
 
         // ========================= START SERVER REQUEST ==============================
 
@@ -158,8 +167,6 @@ export default {
       } 
       
       else {   // if we are offline
-
-        this.isConnected = false;
         
         // get last messages from the local storage
         oldMessages = localStorage.getItem(this.SelectedChannel);
@@ -167,9 +174,7 @@ export default {
         console.log("messages retrieve from localStorage");
         
         // USE CASE: if app is opened offline and no previous messages are stored on local storage, oldMessages will be NULL
-        if (oldMessages == null) {
-            this.warning = "Cannot fetch messages list. Check your internet connection. "
-        } else {
+        if (oldMessages != null) {
           // convert the string in JSON
           this.messages = JSON.parse(oldMessages);
         }

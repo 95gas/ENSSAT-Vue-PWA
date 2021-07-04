@@ -63,8 +63,11 @@ export default {
       
       // delete previous calendar stored
       this.emptyCalendar();
+
       // build new calendar
+      if (this.calendarFile != null) {
       this.populateCalendar();
+      }
     },
   },
   // ========================= METHOD =============================

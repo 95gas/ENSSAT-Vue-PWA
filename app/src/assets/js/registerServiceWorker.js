@@ -6,7 +6,7 @@
 
 import { register } from 'register-service-worker'
 
-register(`/ServiceWorker.js`, { // IMPO: the current path is referred to the public folder by default !
+register(`/service-worker.js`, { // IMPO: the current path is referred to the public folder by default !
   ready() {
     console.log(
       'App is being served from cache by a service worker.\n' +

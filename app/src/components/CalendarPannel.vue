@@ -73,20 +73,38 @@ export default {
   components: {
     CalendarLayout,
   },
+  // ======================= MOUNTED ==============================
+  // ===== as the page is rendered execute these functions ========
+  mounted() { 
+    this.isOnlineAsync()
+  },
   // ======================== DATA ================================
   data() {
     return {
       SelectedFaculty: -1,    // keep track of the INDEX in the database of the selected faculty
       SelectedGroup: "",      // keep track of the INDEX in the database of the selected group for the selected faculty
       ScheduleSelected: "",   // keep track of the NAME of the group selected
-      listFaculties: Db,      // pass database
+      listFaculties: Db,      // pass the database
       calendarFile: "",       // for storing the file fetched from the server
       componentKey: 0,        // key for the component 'CalendarLayout'
-      warning:""              // Variable to prin a warning on the interface
+      warning:"",             // Variable to prin a warning on the interface
+      isConnected:''          // keeps track if a internet connection exists
     };
   },
   // ========================= METHOD =============================
   methods: {
+    // ************************************ isOnlineAsync *************************************
+    // Async function listener to the 'online' event of the system. 
+    // As the connection is lost it 'removes' the warning and lets the app know it is online
+    // ****************************************************************************************
+    isOnlineAsync: function() {
+        window.addEventListener('online', ()=> {
+        console.log("You are now back online.");
+        this.isConnected = true
+        this.warning = ""
+      })
+    },
+
     /*************************** RELOAD COMPONENT *****************************
     **************************************************************************
     The function deals with changing the 'key' of the component 'CalendarLayour'.
@@ -101,15 +119,15 @@ export default {
     The function deals with fetching the calendar from server.*/
 
     fetchCalendar: function () {
-      // variable to check if a connection to internet exists
-      const isOnline = navigator.onLine;
+      // update the status of the network
+      this.isConnected = navigator.onLine;
 
       try {
         // set the name of the group selected
         this.ScheduleSelected = this.listFaculties.Faculty[this.SelectedFaculty].Groups[this.SelectedGroup].Name;
 
         // if we are connected to internet
-        if (isOnline) {
+        if (this.isConnected) {
           
           // ========================= START SERVER REQUEST ==============================
 

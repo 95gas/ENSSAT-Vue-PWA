@@ -32,7 +32,7 @@ export default {
 
       // emit username of the user that got just connected
       this.$socket.client.emit("online", { username: this.username });
-    },
+    }
   },
 };
 </script>
