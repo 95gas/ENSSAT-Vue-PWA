@@ -9,4 +9,3 @@ or by the vue graphic interface:
 ```
 vue ui
 ```
-
