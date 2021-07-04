@@ -1,9 +1,5 @@
 # ENSSAT Vue PWA
 
-## Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
 
 ---
 
@@ -31,8 +27,8 @@ Realized with NodeJS, it deals with:
 
 ## Technologies
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
+* Vue.JS  v3.0.0
+* Node.JS v14.16.0
 
 ---
 
