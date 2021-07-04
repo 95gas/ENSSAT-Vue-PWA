@@ -25,12 +25,12 @@ Realized with NodeJS, it deals with:
 ---
 
 ## Technologies
-Frontend:
+FRONTEND:
 * Vue.JS  v3.0.0
 * [v-calendar](https://vcalendar.io/) package - For rendering the calendar.
 * [Vue-Socket.io-Extended](https://github.com/probil/vue-socket.io-extended/tree/alpha) package - For implementing the chat.
 
-Backend:
+BACKEND:
 * Node.JS v14.16.0
 * [LowDB](https://github.com/typicode/lowdb) database - For storing the messages.
 * [Node-ical](https://www.npmjs.com/package/node-ical) - For reading the ics file from URL.
