@@ -1,4 +1,4 @@
-# app
+# Vue PWA app
 
 ### Compile and run on Localhost
 either:
