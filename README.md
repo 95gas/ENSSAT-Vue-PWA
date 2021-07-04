@@ -1,5 +1,19 @@
 # Integration Web Project
 
+This project aims at realizing a progressive web app (PWA) exploting the vue framework for building the user interface. The service offered by the app consists in 
+1. Displaying the schedule for a specific degree offered by ENSSAT selected by the user. 
+2. a chat with different channels that offers different options based on the type of user logged in.
+   - ADMIN: They can send new messages over the channels.
+   - NORMAL USER: They can only read the messages emitted by the admins on the several channels.
+   
+The project consists of two main components:
+
+###1. App
+The app, realized in vue js, deals with displaing the user interface trough which the user can use the service. 
+
+###2. Server
+It 
+
 ## Deployment over internet
 
 ### Deployment of the server on Heroku.com
