@@ -25,9 +25,14 @@ Realized with NodeJS, it deals with:
 ---
 
 ## Technologies
-Project is created with:
+Frontend:
 * Vue.JS  v3.0.0
+* [v-calendar](https://vcalendar.io/) package - For rendering the calendar.
+* [Vue-Socket.io-Extended](https://github.com/probil/vue-socket.io-extended/tree/alpha) package - For implementing the chat.
+
+Backend:
 * Node.JS v14.16.0
+* [LowDB](https://github.com/typicode/lowdb) database - For storing the messages.
 
 ---
 
