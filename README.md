@@ -33,7 +33,7 @@ Before starting, create two new repository on your github account: one for the a
    ( If some errors occur during the launch on the server, you can check the logs on 'View logs' by clicking on the button 'More' placed at the top of the same page where the building process occurs )
   
 ## Deployment of the vue app on Netlify.com
-   *** IMPORTANT : Change the URL attribute in the config.json file by setting the URL of the server deployed before. Push the changes on the repository on github *** 
+   ***IMPORTANT : Change the _**URL.domain**_ attribute in the _config.json_ file ( you find it in the ROOT of the folder 'app' ) by setting the URL of the server deployed before. Push the changes on the repository on github.*** 
    1. On your project page ( that is the 'team' page based on Netlify terms), click on 'New site from Git'.
    2. A page will pop up. On this page, click on 'Github'.
    3. After having authorized github, on the same page as before, select your repository containing the files for the app.
