@@ -3,8 +3,7 @@
 
 ---
 
-## General info
-This project is simple Lorem ipsum dolor generator.
+## Introduction
 
 This project aims at realizing a progressive web app (PWA) exploiting the vue framework for building the user interface, and NodeJS for the implementation of the backend. The service offered by the app consists in :
 1. Displaying the schedule for a specific degree ( selected by the user ) offered by the ENSSAT school. 
