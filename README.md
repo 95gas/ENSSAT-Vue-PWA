@@ -1,5 +1,15 @@
 # ENSSAT Vue PWA
 
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
+
+---
+
+## General info
+This project is simple Lorem ipsum dolor generator.
+
 This project aims at realizing a progressive web app (PWA) exploiting the vue framework for building the user interface, and NodeJS for the implementation of the backend. The service offered by the app consists in :
 1. Displaying the schedule for a specific degree ( selected by the user ) offered by the ENSSAT school. 
 2. A chat with different channels that offers different options based on the type of the user that is logged in.
@@ -16,6 +26,15 @@ Realized with NodeJS, it deals with:
 - Fetching the calendars from the ENSSAT scheduling platform and stores them ( in particular such task is executed daily at 1am ).
 - Initializing the websocket for the implementation of the chat.
 - Storing the messages sent by the admins in a lowDB database.
+
+---
+
+## Technologies
+Project is created with:
+* Lorem version: 12.3
+* Ipsum version: 2.33
+
+---
 
 # Deployment over internet
 For all the web hosting platforms you will be asked for creating a profile. 
