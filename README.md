@@ -23,12 +23,12 @@ Before starting, create two new repositories on your github account: one for the
 
 ## Deployment of the server on Heroku.com
    1. Create a new project. 
-      ( The name of the project will be used as part of the URL of your server: "https://<Name of your project>.herokuapp.com/")
+      ( The name of the project will be used as part of the URL of your server: 'https://_Name_of_your_project_.herokuapp.com/')
    2. Go on the section 'Deploy'. 
       a. Select 'Github' on the Deployment method section
       b. On the section 'App connected to Github' connect the repository containing the files for the server.
       c. At the bottom of the page, on the section 'Manual deploy', click on the button 'Deploy Branch'.
-   3. Open the app. To test if the server is running, you can visit the page 'https://<Name of your project>.herokuapp.com/'. You should get a white page with the writing ' Server launched .. ' 
+   3. Open the app. To test if the server is running, you can visit the page 'https://_Name_of_your_project_.herokuapp.com/''. You should get a white page with the writing ' Server launched .. ' 
 
    ( If some errors occur during the launch of the server, you can check the logs on 'View logs' by clicking on the button 'More' placed at the top of the same page where the building process occurs )
   
