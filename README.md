@@ -50,7 +50,7 @@ BACKEND:
 For all the web hosting platforms you will be asked for creating a profile. 
 Before starting, create two new repositories on your github account: one for the app and one for the server. Place in the respective repository the files included in the 'app' folder and the ones in the 'server' folder.  
 
-### Deployment of the server on Heroku.com
+### Deployment of the server on [Heroku.com](https://www.heroku.com/)
    1. Create a new project. 
       ( The name of the project will be used as part of the URL of your server: 'https://_Name_of_your_project_.herokuapp.com/')
    2. Go on the section 'Deploy'. 
@@ -61,7 +61,7 @@ Before starting, create two new repositories on your github account: one for the
 
    ( If some errors occur during the launch of the server, you can check the logs on 'View logs' by clicking on the button 'More' placed at the top of the same page where the building process occurs )
   
-### Deployment of the vue app on Netlify.com
+### Deployment of the vue app on [Netlify.com](https://www.netlify.com/)
    ***IMPORTANT : Change the _**URL.domain**_ attribute in the _config.json_ file ( you find it in the ROOT of the folder 'app' ) by setting the URL of the server deployed before (https://_Name_of_your_project_.herokuapp.com/). Push the changes on the repository on github.*** 
    1. On your project page ( this is the 'team' page based on Netlify terms), click on 'New site from Git'.
    2. A page will pop up. On this page, click on 'Github'.
